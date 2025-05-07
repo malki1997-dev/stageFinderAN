@@ -1,0 +1,28 @@
+<div class="sidebar">
+
+
+  <!-- Spécialité -->
+  <div class="filter-section">
+    <h3>SPÉCIALITÉ</h3>
+    <p-dropdown [(ngModel)]="selectedSpeciality" [options]="specialities" placeholder="Choisir..." (onChange)="applyFilters()"></p-dropdown>
+  </div>
+
+  <!-- Ville(s) -->
+  <div class="filter-section">
+    <h3>VILLE(S)</h3>
+    <p-dropdown [(ngModel)]="selectedCity" [options]="cities" placeholder="Choisir..." (onChange)="applyFilters()"></p-dropdown>
+  </div>
+
+  <!-- Durée -->
+  <div class="filter-section">
+    <h3>DURÉE</h3>
+    <p-dropdown [(ngModel)]="selectedDuration" [options]="durations" placeholder="Choisir..." (onChange)="applyFilters()"></p-dropdown>
+  </div>
+
+  <!-- Contrat -->
+  <div class="filter-section">
+    <h3>CONTRAT</h3>
+    <p-dropdown [(ngModel)]="selectedContract" [options]="contracts" placeholder="Choisir..." (onChange)="applyFilters()"></p-dropdown>
+  </div>
+
+</div>

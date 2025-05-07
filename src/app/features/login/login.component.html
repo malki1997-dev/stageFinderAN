@@ -1,0 +1,56 @@
+<div class="login-container">
+  <p-card styleClass="login-card">
+    <div class="logo-container">
+      <img src="assets/images/sf.jpg" alt="" class="logo">
+      <!-- <img src="assets/logo-placeholder.png" alt="Logo" class="logo" /> -->
+    </div>
+    <h2 class="title">Connexion</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="field">
+        <label for="email" class="label">Email</label>
+        <input
+          pInputText
+          id="email"
+          formControlName="email"
+          placeholder="Entrez votre email"
+          class="input-field"
+          [class.p-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+        />
+        <small *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-text">
+          Veuillez entrer un email valide.
+        </small>
+      </div>
+      <div class="field">
+        <label for="password" class="label">Mot de passe</label>
+        <p-password
+          id="password"
+          formControlName="password"
+          placeholder="Entrez votre mot de passe"
+          styleClass="input-field"
+          [toggleMask]="true"
+          [feedback]="false"
+          [class.p-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        ></p-password>
+        <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-text">
+          Le mot de passe est requis.
+        </small>
+      </div>
+      <p-button
+        label="Se connecter"
+        type="submit"
+        styleClass="submit-button"
+        [disabled]="loginForm.invalid && loginForm.touched"
+      ></p-button>
+    </form>
+    <div class="register-link">
+      <span>Pas de compte ? </span>
+      <!-- <a routerLink="/register" class="link">S'inscrire</a> -->
+      <a class="nav-link" (click)="regchoix()">S'inscrire</a>
+    </div>
+    <p-messages *ngIf="errorMessage" severity="error" class="error-message">
+      <ng-template pTemplate>
+        <span>{{ errorMessage }}</span>
+      </ng-template>
+    </p-messages>
+  </p-card>
+</div>

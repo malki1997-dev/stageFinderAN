@@ -1,0 +1,121 @@
+.job-listings {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.job-listings h2 {
+  font-size: 24px;
+  color: #ff9500;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.job-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.job-details {
+  flex: 1;
+}
+
+.job-details h3 {
+  font-size: 18px;
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 10px 0;
+}
+
+.location {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 5px 0;
+}
+
+.location .pi-map-marker {
+  margin-right: 5px;
+  color: #ff9500;
+}
+
+.category, .skills, .salary {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 5px 0;
+}
+
+.job-meta {
+  text-align: right;
+  color: #666;
+}
+
+.job-meta p {
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.publication-date, .expiration-date, .published-by {
+  font-size: 14px;
+}
+
+:host ::ng-deep .p-button.p-button-rounded {
+  width: 40px;
+  height: 40px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+:host ::ng-deep .edit-button {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+}
+
+:host ::ng-deep .delete-button {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+}
+
+/* Styles pour le paginator */
+.p-paginator {
+  margin-top: 20px;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: #ff9500;
+  border-color: #ff9500;
+  color: #fff;
+}

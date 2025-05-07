@@ -1,0 +1,39 @@
+<div class="job-listings">
+  <app-add-offre></app-add-offre>
+  <h2>MES OFFRES DE STAGE</h2>
+  <div class="job-card" *ngFor="let offre of offres">
+    <div class="job-header">
+      <div class="job-details">
+        <p class="description">{{ offre.description }}</p>
+        <p class="description">{{ offre.anneesExperience }}</p>
+        <p class="location">
+          <i class="pi pi-map-marker"></i> {{ offre.ville }}
+        </p>
+        <p class="category">Domaine: {{ offre.categorieNom }}</p>
+        <p class="skills">Compétences: {{ offre.competenceExigee }}</p>
+        <p class="salary">Salaire: {{ offre.salaire + " MAD" }}</p>
+      </div>
+      <div class="job-meta">
+        <p class="publication-date">Publié le {{ offre.datePublication | date:'dd/MM/yyyy' }}</p>
+        <p class="expiration-date">Expire le {{ offre.dateExpiration | date:'dd/MM/yyyy' }}</p>
+        <p class="published-by">Publié par: {{ offre.publieParNom }}</p>
+        <p class="published-by">Nom d'Entreprise: {{ offre.nomEntreprise }}</p>
+        <div class="action-buttons">
+          <p-button icon="pi pi-pencil" styleClass="edit-button" (click)="showEditDialog(offre)"></p-button>
+          <p-button icon="pi pi-trash" styleClass="delete-button" (click)="deleteOffre(offre.id)"></p-button>
+        </div>
+      </div>
+    </div>
+    <!-- <p-button label="Postuler" styleClass="recruiter-button" (click)="onPostule()"></p-button> -->
+  </div>
+
+  <p-paginator
+    [first]="currentPage * rowsPerPage"
+    [rows]="rowsPerPage"
+    [totalRecords]="totalRecords"
+    (onPageChange)="onPageChange($event)"
+    [rowsPerPageOptions]="[3, 5, 10]"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="{last}/{totalRecords} offres"
+  ></p-paginator>
+</div>

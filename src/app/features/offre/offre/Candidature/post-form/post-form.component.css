@@ -1,0 +1,94 @@
+.postuler-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0e7ff 0%, #d0edc0 100%);
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.postuler-container h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.postuler-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-field {
+  margin-bottom: 1.5rem;
+}
+
+.form-field label {
+  display: block;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
+.error {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+:host ::ng-deep .p-fileupload .p-fileupload-buttonbar {
+  display: none;
+}
+
+:host ::ng-deep .p-fileupload .p-fileupload-content {
+  padding: 0;
+}
+
+:host ::ng-deep .p-fileupload-choose {
+  background: #48bb78 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 500 !important;
+  transition: background 0.3s ease !important;
+}
+
+:host ::ng-deep .p-fileupload-choose:hover {
+  background: #38a169 !important;
+}
+
+:host ::ng-deep .submit-button {
+  background: #48bb78 !important;
+  border: none !important;
+  border-radius: 25px !important;
+  padding: 0.75rem 2rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  width: 100%;
+  transition: all 0.3s ease !important;
+}
+
+:host ::ng-deep .submit-button:hover {
+  background: #38a169 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+:host ::ng-deep .submit-button:disabled {
+  background: #a0aec0 !important;
+  cursor: not-allowed;
+}
+
+:host ::ng-deep .p-toast .p-toast-message {
+  border-radius: 6px;
+  font-size: 0.95em;
+}

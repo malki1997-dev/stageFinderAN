@@ -1,0 +1,59 @@
+.register-choix-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #d6f2dd 0%, #e1d6ed 100%);
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.register-choix-container h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.button-group {
+  display: flex;
+  gap: 1.5rem;
+}
+
+:host ::ng-deep .stagiaire-button {
+  background: #48bb78 !important;
+  border: none !important;
+  padding: 0.75rem 2rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  border-radius: 25px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+:host ::ng-deep .stagiaire-button:hover {
+  background: #38a169 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+:host ::ng-deep .entreprise-button {
+  background: #d9a04c !important;
+  border: none !important;
+  padding: 0.75rem 2rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  border-radius: 25px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+:host ::ng-deep .entreprise-button:hover {
+  background: #3182ce !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
+}

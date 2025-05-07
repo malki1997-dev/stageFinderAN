@@ -1,0 +1,59 @@
+.dialog-content {
+  padding: 20px;
+}
+
+.p-field {
+  margin-bottom: 20px;
+}
+
+.p-field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.p-field input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.p-field p-calendar {
+  width: 100%;
+}
+
+:host ::ng-deep .p-calendar .p-inputtext {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Style pour le bouton Enregistrer (vert, texte blanc) */
+:host ::ng-deep .p-button.p-button-save {
+  background-color: #28a745; /* Vert */
+  border-color: #28a745;
+  color: #ffffff; /* Texte blanc */
+}
+
+:host ::ng-deep .p-button.p-button-save:hover {
+  background-color: #218838; /* Vert plus foncé au survol */
+  border-color: #218838;
+  color: #ffffff;
+}
+
+/* Style pour le bouton Annuler (rouge, texte blanc) */
+:host ::ng-deep .p-button.p-button-cancel {
+  background-color: #dc3545; /* Rouge */
+  border-color: #dc3545;
+  color: #ffffff; /* Texte blanc */
+}
+
+:host ::ng-deep .p-button.p-button-cancel:hover {
+  background-color: #c82333; /* Rouge plus foncé au survol */
+  border-color: #c82333;
+  color: #ffffff;
+}

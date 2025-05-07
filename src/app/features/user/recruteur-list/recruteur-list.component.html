@@ -1,0 +1,41 @@
+<div class="chart-container">
+  <h3>Liste des recruteurs</h3>
+  <p-table [value]="recruteurs" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Nom de l'entreprise</th>
+        <th>RC</th>
+        <th>ICE</th>
+        <th>Valide</th>
+        <th>Adresse</th>
+        <th>Action</th>
+        <th>Image</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-recruteur>
+      <tr>
+        <td>{{ recruteur.nom }}</td>
+        <td>{{ recruteur.email }}</td>
+        <td>{{ recruteur.tel }}</td>
+        <td>{{ recruteur.nomEntreprise }}</td>
+        <td>{{ recruteur.rc }}</td>
+        <td>{{ recruteur.ice }}</td>
+        <td>{{ recruteur.estValide ? 'Oui' : 'Non' }}</td>
+        <td>{{ recruteur.adresse }}</td>
+        <td>
+          <p-button
+            [label]="recruteur.estValide ? 'Refuser' : 'Accepter'"
+            [styleClass]="recruteur.estValide ? 'p-button-danger' : 'p-button-success'"
+            (onClick)="toggleEstValide(recruteur)"
+          ></p-button>
+        </td>
+        <td>
+          <img [src]="recruteur.image" alt="Image de l'entreprise" class="recruteur-image" *ngIf="recruteur.image">
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

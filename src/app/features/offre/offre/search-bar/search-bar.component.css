@@ -1,0 +1,16 @@
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+:host ::ng-deep .p-inputtext {
+  width: 200px;
+  border-radius: 20px;
+  padding: 8px 30px 8px 12px;
+  border: 1px solid var(--surface-border);
+}
+
+:host ::ng-deep .pi-search {
+  color: var(--text-color-secondary);
+}

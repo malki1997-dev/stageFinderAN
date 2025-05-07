@@ -1,0 +1,46 @@
+<div class="reg-sta-container">
+  <h2>Inscription Stagiaire</h2>
+  <form [formGroup]="stagiaireForm" (ngSubmit)="onSubmit()" class="stagiaire-form">
+      <div class="form-field">
+          <label for="nom">Nom</label>
+          <input pInputText id="nom" formControlName="nom" placeholder="Votre nom" />
+          <small *ngIf="stagiaireForm.get('nom')?.invalid && stagiaireForm.get('nom')?.touched" class="error">
+              Le nom est requis (minimum 2 caractères).
+          </small>
+      </div>
+
+      <div class="form-field">
+          <label for="email">Email</label>
+          <input pInputText id="email" formControlName="email" placeholder="Votre email" />
+          <small *ngIf="stagiaireForm.get('email')?.invalid && stagiaireForm.get('email')?.touched" class="error">
+              Veuillez entrer un email valide.
+          </small>
+      </div>
+
+      <div class="form-field">
+          <label for="tel">Téléphone</label>
+          <input pInputText id="tel" formControlName="tel" placeholder="Votre numéro de téléphone (10 chiffres)" />
+          <small *ngIf="stagiaireForm.get('tel')?.invalid && stagiaireForm.get('tel')?.touched" class="error">
+              Veuillez entrer un numéro de téléphone valide (10 chiffres).
+          </small>
+      </div>
+
+      <div class="form-field">
+          <label for="cvFile">CV</label>
+          <p-fileUpload
+              id="cvFile"
+              name="cvFile"
+              (onUpload)="onCvUpload($event)"
+              mode="basic"
+              chooseLabel="Choisir un CV"
+              accept=".pdf"
+              maxFileSize="5000000">
+          </p-fileUpload>
+          <small *ngIf="stagiaireForm.get('cvFile')?.invalid && stagiaireForm.get('cvFile')?.touched" class="error">
+              Veuillez uploader votre CV (PDF, max 5MB).
+          </small>
+      </div>
+
+      <button pButton type="submit" label="S'inscrire" [disabled]="stagiaireForm.invalid" class="submit-button"></button>
+  </form>
+</div>

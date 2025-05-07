@@ -1,0 +1,76 @@
+<div class="reg-rec-container">
+  <h2>Inscription Recruteur</h2>
+  <form [formGroup]="recruteurForm" (ngSubmit)="onSubmit()" class="recruteur-form">
+      <div class="form-field">
+          <label for="nom">Nom</label>
+          <input pInputText id="nom" formControlName="nom" placeholder="Votre nom" />
+          <small *ngIf="recruteurForm.get('nom')?.invalid && recruteurForm.get('nom')?.touched" class="error">
+              Le nom est requis (minimum 2 caractères).
+          </small>
+      </div>
+
+      <div class="form-field">
+          <label for="email">Email</label>
+          <input pInputText id="email" formControlName="email" placeholder="Votre email" />
+          <small *ngIf="recruteurForm.get('email')?.invalid && recruteurForm.get('email')?.touched" class="error">
+              Veuillez entrer un email valide.
+          </small>
+      </div>
+
+      <div class="form-field">
+          <label for="nomEntreprise">Nom de l'entreprise</label>
+          <input pInputText id="nomEntreprise" formControlName="nomEntreprise" placeholder="Nom de votre entreprise" />
+          <small *ngIf="recruteurForm.get('nomEntreprise')?.invalid && recruteurForm.get('nomEntreprise')?.touched" class="error">
+              Le nom de l'entreprise est requis.
+          </small>
+      </div>
+
+      <div class="form-field">
+        <label for="nomEntreprise">RC</label>
+        <input pInputText id="RC" formControlName="RC" placeholder="RC" />
+        <small *ngIf="recruteurForm.get('RC')?.invalid && recruteurForm.get('RC')?.touched" class="error">
+            Le RC de l'entreprise est requis.
+        </small>
+    </div>
+
+    <div class="form-field">
+      <label for="nomEntreprise">ICE</label>
+      <input pInputText id="ICE" formControlName="ICE" placeholder="ICE" />
+      <small *ngIf="recruteurForm.get('ICE')?.invalid && recruteurForm.get('ICE')?.touched" class="error">
+          Le ICE de l'entreprise est requis.
+      </small>
+  </div>
+
+
+      <div class="form-field">
+          <label for="tel">Téléphone</label>
+          <input pInputText id="tel" formControlName="tel" placeholder="Votre numéro de téléphone (10 chiffres)" />
+          <small *ngIf="recruteurForm.get('tel')?.invalid && recruteurForm.get('tel')?.touched" class="error">
+              Veuillez entrer un numéro de téléphone valide (10 chiffres).
+          </small>
+      </div>
+
+      <div class="form-field">
+          <label for="adresse">Adresse</label>
+          <input pInputText id="adresse" formControlName="adresse" placeholder="Votre adresse" />
+          <small *ngIf="recruteurForm.get('adresse')?.invalid && recruteurForm.get('adresse')?.touched" class="error">
+              L'adresse est requise.
+          </small>
+      </div>
+
+      <div class="form-field">
+          <label for="image">Logo</label>
+          <p-fileUpload
+              id="image"
+              name="image"
+              (onUpload)="onImageUpload($event)"
+              mode="basic"
+              chooseLabel="Choisir une image"
+              accept="image/*"
+              maxFileSize="1000000">
+          </p-fileUpload>
+      </div>
+
+      <button pButton type="submit" label="S'inscrire" [disabled]="recruteurForm.invalid" class="submit-button"></button>
+  </form>
+</div>

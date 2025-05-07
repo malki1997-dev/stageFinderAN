@@ -1,0 +1,124 @@
+.plans-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.plan-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+}
+
+.plan-header {
+  padding: 2rem 1rem;
+  color: white;
+}
+
+.plan-card.starter .plan-header {
+  background: linear-gradient(135deg, #68d391 0%, #48bb78 100%);
+}
+
+.plan-card.serious .plan-header {
+  background: linear-gradient(135deg, #63b3ed 0%, #4299e1 100%);
+}
+
+.plan-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.plan-header .price {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+.plan-header .price sup {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.plan-header .description {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+:host ::ng-deep .best-seller {
+  background-color: #4299e1 !important;
+  border-radius: 20px !important;
+  padding: 0.25rem 0.75rem !important;
+  font-size: 0.75rem !important;
+}
+
+.plan-details {
+  padding: 1.5rem 1rem;
+  color: #4a5568;
+}
+
+.plan-details p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.plan-details p strong {
+  font-weight: 500;
+}
+
+.plan-details p span {
+  font-weight: 400;
+}
+
+.plan-details p i.pi-check {
+  color: #48bb78;
+}
+
+:host ::ng-deep .buy-button {
+  background: #4299e1 !important;
+  border: none !important;
+  border-radius: 25px !important;
+  padding: 0.75rem 2rem !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+:host ::ng-deep .buy-button:hover {
+  background: #3182ce !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .plans-container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .plan-card {
+      max-width: 100%;
+  }
+}

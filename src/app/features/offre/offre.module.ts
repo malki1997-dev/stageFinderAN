@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { OffreRoutingModule } from './offre-routing.module';
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    OffreRoutingModule
   ]
 })
-export class UsersModule { }
+export class OffreModule { }
