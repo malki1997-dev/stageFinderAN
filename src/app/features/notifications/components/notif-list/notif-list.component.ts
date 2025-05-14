@@ -1,32 +1,26 @@
-import { Component,Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotifService } from '../../services/notif.service';
-
+import { NotificationDto } from '../../models/notification-dto';
 
 @Component({
   selector: 'app-notif-list',
-  imports: [
-    CommonModule
-  ],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './notif-list.component.html',
-  styleUrl: './notif-list.component.css',
-  standalone:true
+  styleUrl: './notif-list.component.css'
 })
-export class NotifListComponent {
-  
-   // Injection du service
-  constructor(public notifService: NotifService) {}
+export class NotifListComponent implements OnInit {
 
-  // Utiliser les méthodes du service pour récupérer les données
-  get notifications()
-                        {
-             return this.notifService.getNotifications();  // Méthode pour récupérer les notifications
-                        }
+  notifications: NotificationDto[] = [];
 
-  get nbr()
-             {
-            return this.notifService.getNbr();  // Méthode pour récupérer le nombre de notifications
-             }
+  constructor(private notifService: NotifService) {}
 
-
+  ngOnInit(): void {
+    const userId = 2; // hna 7ssb l userId dyalk
+    this.notifService.fetchNotificationsByUser(userId).subscribe({
+      next: (data) => this.notifications = data,
+      error: (err) => console.error(err)
+    });
+  }
 }

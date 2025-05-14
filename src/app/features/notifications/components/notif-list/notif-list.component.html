@@ -1,7 +1,6 @@
-
-  <ul class="list-group">
+<ul class="list-group">
   <!-- Affichage des notifications -->
   <li *ngFor="let notif of notifications" class="list-group-item">
-    <strong>{{ notif.message }}</strong> - <small>{{ notif.date }}</small>
+    <strong>{{ notif.message }}</strong> - <small>{{ notif.dateEnvoie | date:'short' }}</small>
   </li>
 </ul>

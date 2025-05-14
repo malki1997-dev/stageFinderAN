@@ -8,8 +8,8 @@
     
     <!-- Badge statique (ex: 4 notifications) -->
     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-      {{nbr}}
-    </span>
+  {{ notificationCount }}
+     </span>
 
     <!-- Liste des notifications (toggle) -->
     <ul *ngIf="showNotifications" class="notification-list list-group position-absolute end-0 mt-3" style="z-index: 1000; min-width: 300px;">
