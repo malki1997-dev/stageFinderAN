@@ -1,21 +1,19 @@
-<nav class="navbar navbar-light bg-light d-flex justify-content-between align-items-center px-3">
+<nav class="navbar navbar-light bg-light d-flex justify-content-between align-items-center px-3 mt-2 pt-1">
   <!-- StageFinder -->
   <span class="navbar-brand mb-0 h1">StageFinder</span>
 
   <!-- Icône notification avec badge -->
   <div class="position-relative" (click)="toggleNotifications()" style="cursor: pointer;">
-<i class="material-icons" style="font-size:48px;color:rgb(223, 251, 6)">notifications</i>
-    <!-- Badge avec nombre de notifications -->
-    <span *ngIf="notifications.length > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-      {{ notifications.length }}
+    <i class="material-icons" style="font-size:48px;color:rgb(223, 251, 6)">notifications</i>
+    
+    <!-- Badge statique (ex: 4 notifications) -->
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+      {{nbr}}
     </span>
+
+    <!-- Liste des notifications (toggle) -->
+    <ul *ngIf="showNotifications" class="notification-list list-group position-absolute end-0 mt-3" style="z-index: 1000; min-width: 300px;">
+      <app-notif-list></app-notif-list>
+    </ul>
   </div>
 </nav>
-
-<!-- Liste des notifications -->
-<ul *ngIf="showNotifications" class="notification-list list-group position-absolute end-0 mt-3" style="z-index: 1000; min-width: 300px;">
-  <li class="list-group-item" *ngFor="let notif of notifications">
-    <strong>{{ notif.message }}</strong>
-    <small class="d-block text-muted">{{ notif.date }}</small>
-  </li>
-</ul>

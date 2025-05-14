@@ -1,0 +1,7 @@
+
+  <ul class="list-group">
+  <!-- Affichage des notifications -->
+  <li *ngFor="let notif of notifications" class="list-group-item">
+    <strong>{{ notif.message }}</strong> - <small>{{ notif.date }}</small>
+  </li>
+</ul>
