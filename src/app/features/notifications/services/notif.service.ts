@@ -21,12 +21,10 @@ export class NotifService {
    }
 
    // notif.service.ts
-fetchNotificationCount(userId: number): Observable<number>
- {
-  return this.http.get<NotificationDto[]>(`${this.apiUrl}/user/${userId}`).pipe(
-    map(notifications => notifications.length)
-  );
- }
+fetchNotificationCount(userId: number): Observable<number> {
+  return this.http.get<number>(`${this.apiUrl}/unread/count/${userId}`);
+}
+
 
 
   

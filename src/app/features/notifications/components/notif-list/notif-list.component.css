@@ -1,0 +1,6 @@
+.ex1 {
+  background-color: lightblue;
+  height: 40px;
+  width: 200px;
+  overflow-y: scroll;
+}
