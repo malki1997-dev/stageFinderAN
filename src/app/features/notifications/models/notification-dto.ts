@@ -4,4 +4,5 @@ export interface NotificationDto
   message: string;
   dateEnvoie: string;
   userId: number;
+  read :boolean;
 }
