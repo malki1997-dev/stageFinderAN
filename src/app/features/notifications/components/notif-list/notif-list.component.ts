@@ -16,11 +16,13 @@ export class NotifListComponent implements OnInit {
 
   constructor(private notifService: NotifService) {}
 
-  ngOnInit(): void {
-    const userId = 1; // hna 7ssb l userId dyalk
-    this.notifService.fetchNotificationsByUser(userId).subscribe({
+  ngOnInit(): void
+   {
+    const userId = 2; // hna 7ssb l userId dyalk
+    this.notifService.fetchNotificationsByUser(userId).
+    subscribe({
       next: (data) => this.notifications = data,
       error: (err) => console.error(err)
-    });
+              });
   }
 }

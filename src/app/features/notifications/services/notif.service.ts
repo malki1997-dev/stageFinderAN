@@ -25,6 +25,9 @@ fetchNotificationCount(userId: number): Observable<number> {
   return this.http.get<number>(`${this.apiUrl}/unread/count/${userId}`);
 }
 
+  markAllAsRead(userId: number): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/mark-all-read/${userId}`, null);
+}
 
 
   
