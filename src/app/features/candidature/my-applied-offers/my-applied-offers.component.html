@@ -1,0 +1,28 @@
+<div class="applied-offers-container">
+  <h2>Offres auxquelles j'ai postulé</h2>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  <p-table [value]="appliedOffers" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Description</th>
+        <th>Entreprise</th>
+        <th>Catégorie</th>
+        <th>Date de publication</th>
+        <th>Statut</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-candidature>
+      <tr>
+        <td>{{ candidature.offre?.description || 'Non disponible' }}</td>
+        <td>{{ candidature.offre?.nomEntreprise || '-' }}</td>
+        <td>{{ candidature.offre?.categorieNom || '-' }}</td>
+        <td>{{ candidature.offre?.datePublication | date:'dd/MM/yyyy' }}</td>
+        <td [ngClass]="{
+          'status-en-attente': candidature.statutCandidature === 'EN_ATTENTE',
+          'status-accepte': candidature.statutCandidature === 'ACCEPTE',
+          'status-rejete': candidature.statutCandidature === 'REJETE'
+        }">{{ candidature.statutCandidature }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

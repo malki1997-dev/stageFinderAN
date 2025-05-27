@@ -15,7 +15,7 @@ export const routes: Routes = [
   {path:"tarifs-stagiaire", component : TarifsStagiaireComponent},
   { path : "" , loadChildren:()=>import('../app/features/offre/offre.module').then(m=>m.OffreModule)},
   { path : "" , loadChildren:()=>import('../app/features/user/user.module').then(m=>m.UserModule)},
-  //{ path : "" , loadChildren:()=>import('../app/features/dashboard/dashboard.module').then(m=>m.DashboardModule)},
+  { path : "" , loadChildren:()=>import('../app/features/candidature/candidature.module').then(m=>m.CandidatureModule)},
   { path : "" , loadChildren:()=>import('../app/features/dashboard-admin/dashboard-admin.module').then(m=>m.DashboardAdminModule)},
 
   //{ path : "", component:HeaderAdminComponent},

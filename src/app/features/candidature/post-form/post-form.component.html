@@ -1,17 +1,20 @@
 <app-header-banner3></app-header-banner3>
 <div class="postuler-container">
   <h2>Postuler à une Offre</h2>
+  <div *ngIf="!offreId" class="error-message">
+    <p>Erreur : Aucune offre sélectionnée. Veuillez choisir une offre valide.</p>
+  </div>
   <form [formGroup]="postulerForm" (ngSubmit)="onSubmit()" class="postuler-form">
     <div class="form-field">
       <label for="cvFile">CV (PDF uniquement, max 5MB)</label>
       <p-fileUpload
         id="cvFile"
         name="cvFile"
-        (onUpload)="onCvUpload($event)"
+        (onSelect)="onCvUpload($event)"
         mode="basic"
         chooseLabel="Choisir un CV"
         accept=".pdf"
-        maxFileSize="5000000">
+        [maxFileSize]="5000000">
       </p-fileUpload>
       <small *ngIf="postulerForm.get('cvFile')?.invalid && postulerForm.get('cvFile')?.touched" class="error">
         Veuillez uploader votre CV (PDF, max 5MB).
@@ -23,18 +26,20 @@
       <p-fileUpload
         id="lettreMotivationFile"
         name="lettreMotivationFile"
-        (onUpload)="onLettreMotivationUpload($event)"
+        (onSelect)="onLettreMotivationUpload($event)"
         mode="basic"
         chooseLabel="Choisir une lettre de motivation"
         accept=".pdf"
-        maxFileSize="5000000">
+        [maxFileSize]="5000000">
       </p-fileUpload>
       <small *ngIf="postulerForm.get('lettreMotivationFile')?.invalid && postulerForm.get('lettreMotivationFile')?.touched" class="error">
         Veuillez uploader votre lettre de motivation (PDF, max 5MB).
       </small>
     </div>
 
-    <button pButton type="submit" label="Postuler" [disabled]="postulerForm.invalid" class="submit-button"></button>
+    <button pButton type="submit" label="Postuler" [disabled]="postulerForm.invalid || isLoading || !offreId" class="submit-button">
+      <i class="pi pi-spin pi-spinner" *ngIf="isLoading"></i>
+    </button>
   </form>
 
   <p-toast></p-toast>

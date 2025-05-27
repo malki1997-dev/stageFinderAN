@@ -17,7 +17,10 @@ export class HeaderAdminComponent {
   userMenuItems: MenuItem[] = [
     { label: 'Dashboard', routerLink: '/dashboard-admin' },
     { label: 'Connexion', routerLink: '/login' },
-    { label: 'S\'inscrire', routerLink: '/regchoix' }
+    { label: 'S\'inscrire', routerLink: '/regchoix' },
+    { label: 'Mes demandes', routerLink: '/my-applied-offers' },
+    { label: 'Mon profil', routerLink: '/edit-profile' },
+
   ];
 
   listeStagiaires() {

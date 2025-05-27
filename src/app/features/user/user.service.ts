@@ -38,4 +38,16 @@ export class UserService {
       map(users => users.filter(user => user.role === Role.RECRUTEUR && !user.estValide))
     );
   }
+
+  getUserProfile(userId: number): Observable<UserDTO> {
+    return this.http.get<UserDTO>(`${this.apiUrl}/users/${userId}/profile`);
+  }
+
+  updateUserProfile(userId: number, userDTO: UserDTO, ): Observable<UserDTO> {
+    return this.http.put<UserDTO>(`${this.apiUrl}/users/${userId}/profile`, userDTO);
+  }
+
+  // updateUserProfileWithFiles(userId: number, formData: FormData): Observable<UserDTO> {
+  //   return this.http.put<UserDTO>(`${this.apiUrl}/users/${userId}/profile`, formData);
+  // }
 }

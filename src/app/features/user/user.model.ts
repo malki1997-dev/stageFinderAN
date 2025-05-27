@@ -4,13 +4,13 @@ export interface UserDTO {
   id: number;
   nom: string;
   email: string;
-  nomEntreprise: string;
-  rc: string;
-  ice: string;
-  tel: string;
-  cvFile: string;
-  estValide: boolean;
-  adresse: string;
-  image: string;
-  role: Role;
+  nomEntreprise?: string;
+  rc?: string;
+  ice?: string;
+  tel?: string;
+  cvFile?: string;
+  estValide?: boolean;
+  adresse?: string;
+  image?: string;
+  role?: Role;
 }

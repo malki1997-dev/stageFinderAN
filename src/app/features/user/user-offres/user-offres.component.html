@@ -21,10 +21,10 @@
         <div class="action-buttons">
           <p-button icon="pi pi-pencil" styleClass="edit-button" (click)="showEditDialog(offre)"></p-button>
           <p-button icon="pi pi-trash" styleClass="delete-button" (click)="deleteOffre(offre.id)"></p-button>
+          <p-button label="Voir Candidatures" styleClass="candidatures-button" (click)="viewCandidatures(offre.id)"></p-button>
         </div>
       </div>
     </div>
-    <!-- <p-button label="Postuler" styleClass="recruiter-button" (click)="onPostule()"></p-button> -->
   </div>
 
   <p-paginator

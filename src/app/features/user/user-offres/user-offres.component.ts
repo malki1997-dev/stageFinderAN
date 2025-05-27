@@ -7,11 +7,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { Router } from '@angular/router';
 import { OffreDTO } from '../../offre/offre/offre.model';
 import { OffreService } from '../../offre/offre/offre.service';
-import { AddOffreComponent } from "../../offre/offre/add-offre/add-offre.component";
-
-
-// Supposons un service d'authentification pour récupérer l'ID de l'utilisateur connecté
-// import { AuthService } from '../auth.service';
+import { AddOffreComponent } from '../../offre/offre/add-offre/add-offre.component';
 
 @Component({
   selector: 'app-user-offres',
@@ -25,7 +21,7 @@ export class UserOffresComponent implements OnInit {
   currentPage: number = 0;
   rowsPerPage: number = 3;
   totalRecords: number = 0;
-  userId: number = 5; // ID statique pour tester (remplacez par un ID valide dans votre base)
+  userId: number = 5; // TODO: Remplacer par une récupération dynamique
 
   constructor(
     private offreService: OffreService,
@@ -39,7 +35,7 @@ export class UserOffresComponent implements OnInit {
   loadOffres(page: number, size: number) {
     this.offreService.getOffresByUser(this.userId, page, size).subscribe({
       next: (response) => {
-        this.offres = response.offres; // Les offres sont triées par ID par le back-end
+        this.offres = response.offres;
         console.log('Offres de l\'utilisateur chargées :', this.offres);
         this.currentPage = response.currentPage;
         this.totalRecords = response.totalItems;
@@ -77,7 +73,11 @@ export class UserOffresComponent implements OnInit {
     }
   }
 
-  // onPostule() {
-  //   this.router.navigate(['postuler']);
-  // }
+  viewCandidatures(offreId: number) {
+    if (offreId) {
+      this.router.navigate(['candidatures', offreId]);
+    } else {
+      console.error('offreId non défini pour voir les candidatures');
+    }
+  }
 }

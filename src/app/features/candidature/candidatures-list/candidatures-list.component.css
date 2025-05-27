@@ -1,0 +1,92 @@
+/* Conteneur principal */
+.candidatures-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  position: relative;
+  overflow: visible;
+  direction: ltr !important; /* Force ltr pour tout le conteneur */
+}
+
+/* Titre */
+h2 {
+  margin-bottom: 20px;
+}
+
+/* Table */
+p-table {
+  margin-bottom: 60px; /* Plus d'espace avant la pagination */
+}
+
+p-table .p-datatable {
+  overflow: visible !important;
+  height: auto !important; /* Pas de hauteur fixe */
+}
+
+p-table .p-datatable-tbody > tr > td {
+  padding: 10px;
+  vertical-align: middle;
+}
+
+/* Liens pour fichiers */
+.file-link {
+  color: #007bff;
+  text-decoration: none;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.file-link:hover {
+  text-decoration: underline;
+}
+
+/* Select */
+p-select {
+  width: 150px;
+  display: block;
+  direction: ltr !important; /* Force ltr pour p-select */
+}
+
+::ng-deep .p-select {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  direction: ltr !important;
+}
+
+::ng-deep .p-select-label {
+  flex-grow: 1;
+  text-align: left;
+  order: 0 !important;
+}
+
+::ng-deep .p-select-trigger {
+  margin-left: auto; /* Pousse la flèche à droite */
+  order: 1 !important;
+}
+
+/* Force les overlays PrimeNG à apparaître au-dessus de tout */
+::ng-deep .p-select-overlay,
+::ng-deep .p-overlaypanel,
+::ng-deep .p-dropdown-panel {
+  z-index: 10000 !important; /* Au-dessus de tout */
+  position: fixed !important; /* Pour éviter d'être coupé par overflow */
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Pagination en bas, mais pas au-dessus */
+p-paginator {
+  margin-top: 20px;
+  position: relative;
+  z-index: 0 !important; /* En dessous des overlays */
+}
+
+/* Styles globaux pour le défilement */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: auto !important;
+}

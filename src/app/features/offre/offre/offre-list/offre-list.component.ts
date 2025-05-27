@@ -68,9 +68,13 @@ export class OffreListComponent implements OnInit{
     }
   }
 
-    onPostule() {
-    this.router.navigate(['postuler']);
+  onPostule(offreId: number) {
+    if (offreId) {
+      this.router.navigate(['postuler', offreId]);
+    } else {
+      console.error('offreId non défini');
     }
+  }
 
 
 }
