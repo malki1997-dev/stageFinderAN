@@ -1,5 +1,8 @@
 <div class="job-listings">
-  <app-add-offre></app-add-offre>
+  <div class="search-bar-container">
+    <app-search-bar (search)="onSearch($event)"></app-search-bar>
+  </div>
+  <app-add-offre *ngIf="isRecruteur"></app-add-offre>
   <h2>OFFRES DE STAGE</h2>
   <div class="job-card" *ngFor="let offre of offres">
     <div class="job-header">
@@ -19,12 +22,12 @@
         <p class="published-by">Publié par: {{ offre.publieParNom }}</p>
         <p class="published-by">Nom d'Entreprise: {{ offre.nomEntreprise }}</p>
         <div class="action-buttons">
-          <p-button icon="pi pi-pencil" styleClass="edit-button" (click)="showEditDialog(offre)"></p-button>
-          <p-button icon="pi pi-trash" styleClass="delete-button" (click)="deleteOffre(offre.id)"></p-button>
+          <p-button *ngIf="isRecruteur || isAdmin" icon="pi pi-pencil" styleClass="edit-button" (click)="showEditDialog(offre)"></p-button>
+          <p-button *ngIf="isRecruteur || isAdmin" icon="pi pi-trash" styleClass="delete-button" (click)="deleteOffre(offre.id)"></p-button>
         </div>
       </div>
     </div>
-    <p-button label="Postuler" styleClass="recruiter-button" (click)="onPostule(offre.id)"></p-button>
+    <p-button *ngIf="isStagiaire" label="Postuler" styleClass="recruiter-button" (click)="onPostule(offre.id)"></p-button>
   </div>
 
   <!-- Ajout du Paginator -->

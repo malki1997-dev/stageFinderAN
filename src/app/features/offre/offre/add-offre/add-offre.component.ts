@@ -8,6 +8,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { OffreService } from '../offre.service';
 import { OffreDTO } from '../offre.model';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-add-offre',
@@ -43,7 +44,6 @@ export class AddOffreComponent {
     categorieId: 0
   };
 
-  // Liste des catégories avec id et name
   categories = [
     { id: 1, name: 'INFORMATIQUE' },
     { id: 2, name: 'DEVELOPPEMENT' },
@@ -98,10 +98,13 @@ export class AddOffreComponent {
     { id: 51, name: 'AUTRE' }
   ];
 
-  selectedCategory: number = 0; // Catégorie sélectionnée dans le dropdown
-  userId: number = 5; // ID de l'utilisateur connecté (statique pour tests)
+  selectedCategory: number = 0;
 
-  constructor(private offreService: OffreService, private router: Router) {}
+  constructor(
+    private offreService: OffreService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   showDialog() {
     this.newOffre = {
@@ -131,7 +134,15 @@ export class AddOffreComponent {
       return;
     }
 
-    this.offreService.createOffre(this.newOffre, this.userId, this.newOffre.categorieId).subscribe({
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      console.error('Utilisateur non connecté ou ID manquant');
+      return;
+    }
+
+    this.newOffre.publieParId = userId;
+
+    this.offreService.createOffre(this.newOffre, userId, this.newOffre.categorieId).subscribe({
       next: (nouvelleOffre) => {
         console.log('Offre créée:', nouvelleOffre);
         this.offreAdded.emit();

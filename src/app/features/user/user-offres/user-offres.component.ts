@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { OffreDTO } from '../../offre/offre/offre.model';
 import { OffreService } from '../../offre/offre/offre.service';
 import { AddOffreComponent } from '../../offre/offre/add-offre/add-offre.component';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-user-offres',
@@ -21,11 +22,11 @@ export class UserOffresComponent implements OnInit {
   currentPage: number = 0;
   rowsPerPage: number = 3;
   totalRecords: number = 0;
-  userId: number = 5; // TODO: Remplacer par une récupération dynamique
 
   constructor(
     private offreService: OffreService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -33,7 +34,14 @@ export class UserOffresComponent implements OnInit {
   }
 
   loadOffres(page: number, size: number) {
-    this.offreService.getOffresByUser(this.userId, page, size).subscribe({
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      console.error('Utilisateur non connecté ou ID manquant');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.offreService.getOffresByUser(userId, page, size).subscribe({
       next: (response) => {
         this.offres = response.offres;
         console.log('Offres de l\'utilisateur chargées :', this.offres);

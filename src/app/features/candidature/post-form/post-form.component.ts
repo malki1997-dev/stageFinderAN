@@ -8,6 +8,7 @@ import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderBanner3Component } from '../../../../app/features/header&footer/banners/header-banner3/header-banner3.component';
+import { AuthService } from '../../../../app/features/auth/auth.service';
 
 @Component({
   selector: 'app-post-form',
@@ -29,7 +30,6 @@ export class PostFormComponent implements OnInit {
   uploadedCv: File | null = null;
   uploadedLettreMotivation: File | null = null;
   offreId: number | null = null;
-  userId: number  = 5; // TODO: Remplacer par une récupération dynamique
   isLoading = false;
 
   constructor(
@@ -38,6 +38,7 @@ export class PostFormComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router,
+    private authService: AuthService
   ) {
     this.postulerForm = this.fb.group({
       cvFile: [null, Validators.required],
@@ -59,6 +60,17 @@ export class PostFormComponent implements OnInit {
         });
       }
     });
+
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      console.error('Utilisateur non connecté ou ID manquant');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: 'Veuillez vous connecter pour postuler.'
+      });
+      this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url } });
+    }
   }
 
   onCvUpload(event: any) {
@@ -106,11 +118,12 @@ export class PostFormComponent implements OnInit {
   onSubmit() {
     console.log('Soumission du formulaire déclenchée');
     console.log('Formulaire:', this.postulerForm.value, 'Valide:', this.postulerForm.valid);
-    console.log('offreId:', this.offreId, 'userId:', this.userId);
-    console.log('uploadedCv:', this.uploadedCv);
-    console.log('uploadedLettreMotivation:', this.uploadedLettreMotivation);
+    console.log('offreId:', this.offreId);
 
-    if (this.postulerForm.invalid || !this.offreId || !this.userId) {
+    const userId = this.authService.getUserId();
+    console.log('userId:', userId);
+
+    if (this.postulerForm.invalid || !this.offreId || !userId) {
       console.log('Formulaire invalide ou IDs manquants');
       this.messageService.add({
         severity: 'warn',
@@ -123,7 +136,7 @@ export class PostFormComponent implements OnInit {
 
     this.isLoading = true;
     const formData = new FormData();
-    formData.append('userId', this.userId.toString());
+    formData.append('userId', userId.toString());
     formData.append('offreId', this.offreId.toString());
     formData.append('statutCandidature', 'EN_ATTENTE');
     if (this.uploadedCv) {
@@ -147,6 +160,7 @@ export class PostFormComponent implements OnInit {
         this.uploadedCv = null;
         this.uploadedLettreMotivation = null;
         this.isLoading = false;
+        this.router.navigate(['']);
       },
       error: (err) => {
         console.error('Erreur serveur:', err);
@@ -158,6 +172,5 @@ export class PostFormComponent implements OnInit {
         this.isLoading = false;
       }
     });
-    this.router.navigate(['']);
   }
 }

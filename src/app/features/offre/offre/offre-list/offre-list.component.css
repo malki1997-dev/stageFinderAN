@@ -119,3 +119,10 @@
   border-color: #ff9500;
   color: #fff;
 }
+
+
+.search-bar-container {
+  display: flex;
+  justify-content: flex-end; /* Alignement à droite */
+  margin-bottom: 15px; /* Optionnel : espace sous la barre */
+}

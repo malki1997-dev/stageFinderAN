@@ -7,6 +7,10 @@ import { FooterComponent } from './features/header&footer/footer/footer.componen
 import { RouterOutlet } from '@angular/router';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
+import { HomeComponent } from "./features/home/home.component";
+import { AuthService } from './features/auth/auth.service';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './features/auth/login/login.component';
 
 
 @Component({
@@ -20,11 +24,28 @@ import { InputTextModule } from 'primeng/inputtext';
     FooterComponent,
     RouterOutlet,
     FileUploadModule,
-    InputTextModule
+    InputTextModule,
+    CommonModule,
+    HomeComponent,
+    LoginComponent
 ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   visible: boolean = false;
+  constructor(public authService: AuthService) {}
+
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  // onLogout(): void {
+  //   this.authService.logout().subscribe({
+  //     next: () => {
+  //       localStorage.removeItem('user');
+  //       window.location.href = '/login'; // Redirection forcée pour éviter les problèmes de cache
+  //     }
+  //   });
+  // }
 }

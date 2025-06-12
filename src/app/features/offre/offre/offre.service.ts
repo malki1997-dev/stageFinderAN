@@ -28,12 +28,10 @@ export class OffreService {
     return this.http.get<OffreDTO>(`${this.apiUrl}/${id}`);
   }
 
-  getOffres(page: number, size: number): Observable<{ offres: OffreDTO[], currentPage: number, totalItems: number, totalPages: number }> {
-
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString());
-    return this.http.get<{ offres: OffreDTO[], currentPage: number, totalItems: number, totalPages: number }>(this.apiUrl, { params });
+  getOffres(page: number, size: number): Observable<{ offres: OffreDTO[], currentPage: number, totalItems: number }> {
+    return this.http.get<{ offres: OffreDTO[], currentPage: number, totalItems: number }>(
+      `${this.apiUrl}?page=${page}&size=${size}`
+    );
   }
 
   deleteOffre(id: number): Observable<void> {
@@ -50,6 +48,12 @@ export class OffreService {
 
   updateOffre(id: number, offre: OffreDTO): Observable<OffreDTO> {
     return this.http.put<OffreDTO>(`${this.apiUrl}/${id}`, offre);
+  }
+
+  getOffresByVille(ville: string, page: number, size: number): Observable<{ offres: OffreDTO[], currentPage: number, totalItems: number }> {
+    return this.http.get<{ offres: OffreDTO[], currentPage: number, totalItems: number }>(
+      `${this.apiUrl}/ville/${ville}?page=${page}&size=${size}`
+    );
   }
 
   /**

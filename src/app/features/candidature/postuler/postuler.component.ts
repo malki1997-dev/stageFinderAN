@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderBanner3Component } from '../../header&footer/banners/header-banner3/header-banner3.component';
 import { PropCvComponent } from '../prop-cv/prop-cv.component';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-postuler',
@@ -13,9 +14,12 @@ import { CommonModule } from '@angular/common';
 })
 export class PostulerComponent implements OnInit {
   offreId: number | null = null;
-  userId: number  = 5; // TODO: Remplacer par une récupération dynamique
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -27,5 +31,17 @@ export class PostulerComponent implements OnInit {
         console.error('offreId invalide ou non défini');
       }
     });
+
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      console.error('Utilisateur non connecté ou ID manquant');
+      this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url } });
+    } else {
+      console.log('PostulerComponent - userId:', userId);
+    }
+  }
+
+  get userId(): number | null {
+    return this.authService.getUserId();
   }
 }
