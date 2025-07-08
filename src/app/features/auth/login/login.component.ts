@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit {
           // Stocker uniquement l'id et le role dans le localStorage
           const userData = {
             id: user.id,
-            role: user.role
+            role: user.role,
+            nom:user.nom
           };
           localStorage.setItem('user', JSON.stringify(userData));
           console.log(userData);

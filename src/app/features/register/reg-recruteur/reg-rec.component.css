@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #e0e7ff 0%, #d0edc0 100%);
+  background: #e6f0fa;
   padding: 2rem;
   font-family: 'Poppins', sans-serif;
 }
@@ -49,9 +49,9 @@
 }
 
 .form-field input[pInputText]:focus {
-  border-color: #4299e1;
+  border-color: #4d8eb3;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  box-shadow: 0 0 0 3px #4d8eb3;
 }
 
 .error {
@@ -69,7 +69,7 @@
 }
 
 :host ::ng-deep .p-fileupload-choose {
-  background: #4299e1 !important;
+  background: #4d8eb3 !important;
   border: none !important;
   border-radius: 8px !important;
   padding: 0.75rem 1.5rem !important;
@@ -78,11 +78,11 @@
 }
 
 :host ::ng-deep .p-fileupload-choose:hover {
-  background: #3182ce !important;
+  background: #3d7090 !important; /* Une teinte plus foncée pour l'effet hover */
 }
 
 :host ::ng-deep .submit-button {
-  background: #4299e1 !important;
+  background: #4d8eb3 !important;
   border: none !important;
   border-radius: 25px !important;
   padding: 0.75rem 2rem !important;
@@ -93,7 +93,7 @@
 }
 
 :host ::ng-deep .submit-button:hover {
-  background: #3182ce !important;
+  background: #3d7090 !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
 }
@@ -101,4 +101,17 @@
 :host ::ng-deep .submit-button:disabled {
   background: #a0aec0 !important;
   cursor: not-allowed;
+}
+
+.header {
+  display: flex;
+  justify-content: center; /* Centrage horizontal */
+  align-items: center;      /* Centrage vertical */
+  margin-bottom: 2rem;      /* Espace entre le logo et le formulaire */
+}
+
+.logo {
+  width: 140px;
+  height: 120px;
+  object-fit: contain; /* ou cover selon le besoin */
 }

@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { HeaderAdminComponent } from './features/header&footer/header-admin/header-admin.component';
 import { LoginComponent } from './features/auth/login/login.component';
-import { RegchoixComponent } from './features/register/regchoix/regchoix.component';
-import { RegRecComponent } from './features/register/reg-rec/reg-rec.component';
-import { RegStaComponent } from './features/register/reg-sta/reg-sta.component';
+import { RegchoixComponent } from './features/register/reg-choix/regchoix.component';
+import { RegRecComponent } from './features/register/reg-recruteur/reg-rec.component';
+import { RegStaComponent } from './features/register/reg-stagiaire/reg-sta.component';
 import { TarifsStagiaireComponent } from './features/tarifs-stagiaire/tarifs-stagiaire.component';
 import { DashbordAdminComponent } from './features/dashboard-admin/dashbord-admin/dashbord-admin.component';
 import { AuthGuard } from './core/guards/auth.guard';
@@ -13,7 +13,7 @@ export const routes: Routes = [
   {path:"login", component : LoginComponent},
   {path:"home", component : HomeComponent,
     canActivate:[AuthGuard]
-  },  
+  },
   {path:"regchoix", component : RegchoixComponent },
   {path:"regrec", component : RegRecComponent },
   {path:"regsta", component : RegStaComponent },

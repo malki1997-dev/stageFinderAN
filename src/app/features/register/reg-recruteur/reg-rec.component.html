@@ -1,4 +1,7 @@
 <div class="reg-rec-container">
+  <div class="header">
+      <img src="assets/images/LOGO.png" alt="Stage Finder Logo" class="logo">
+  </div>
   <h2>Inscription Recruteur</h2>
   <form [formGroup]="recruteurForm" (ngSubmit)="onSubmit()" class="recruteur-form">
       <div class="form-field">
@@ -57,6 +60,34 @@
               L'adresse est requise.
           </small>
       </div>
+
+      <!-- Ajout des champs mot de passe -->
+    <div class="form-field">
+      <label for="password">Mot de passe</label>
+      <p-password
+        id="password"
+        formControlName="password"
+        [feedback]="true"
+        placeholder="Votre mot de passe"
+        [toggleMask]="true">
+      </p-password>
+      <small *ngIf="recruteurForm.get('password')?.invalid && recruteurForm.get('password')?.touched" class="error">
+        Le mot de passe est requis (minimum 8 caractères).
+      </small>
+    </div>
+
+    <div class="form-field">
+      <label for="confirmPassword">Confirmation du mot de passe</label>
+      <p-password
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        placeholder="Confirmez votre mot de passe"
+        [toggleMask]="true">
+      </p-password>
+      <small *ngIf="recruteurForm.hasError('mismatch') && recruteurForm.get('confirmPassword')?.touched" class="error">
+        Les mots de passe ne correspondent pas.
+      </small>
+    </div>
 
       <div class="form-field">
           <label for="image">Logo</label>

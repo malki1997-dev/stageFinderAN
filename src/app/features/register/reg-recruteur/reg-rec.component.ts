@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-reg-rec',
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule, ButtonModule, FileUploadModule],
+  imports: [CommonModule, ReactiveFormsModule,
+    InputTextModule, ButtonModule, FileUploadModule, PasswordModule],
   templateUrl: './reg-rec.component.html',
   styleUrl: './reg-rec.component.css'
 })
@@ -27,9 +29,19 @@ export class RegRecComponent {
             ICE: ['', Validators.required, Validators.pattern(/^\d{15}$/)],
             tel: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
             adresse: ['', Validators.required],
-            image: [null]
-        });
+            image: [null],
+             password: ['', [Validators.required, Validators.minLength(8)]], // Ajout du champ password
+      confirmPassword: ['', Validators.required] // Ajout du champ confirmation
+    }, { validator: this.passwordMatchValidator }); // Ajout du validateur personnalisé
+
     }
+
+    // Validateur pour vérifier que les mots de passe correspondent
+  passwordMatchValidator(formGroup: FormGroup) {
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
 
     onImageUpload(event: any) {
         const file = event.files[0];

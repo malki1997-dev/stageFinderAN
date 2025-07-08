@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #d6f2dd 0%, #e1d6ed 100%);
+  background: #e6f0fa;
   padding: 20px;
   font-family: 'Poppins', sans-serif;
 }
@@ -25,7 +25,7 @@
 }
 
 :host ::ng-deep .stagiaire-button {
-  background: #48bb78 !important;
+  background: #4d8eb3 !important;
   border: none !important;
   padding: 0.75rem 2rem !important;
   font-size: 1.1rem !important;
@@ -36,13 +36,13 @@
 }
 
 :host ::ng-deep .stagiaire-button:hover {
-  background: #38a169 !important;
+  background: #508fb4 !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
 :host ::ng-deep .entreprise-button {
-  background: #d9a04c !important;
+  background: #5290ca !important;
   border: none !important;
   padding: 0.75rem 2rem !important;
   font-size: 1.1rem !important;
@@ -56,4 +56,17 @@
   background: #3182ce !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.header {
+  display: flex;
+  justify-content: center; /* Centrage horizontal */
+  align-items: center;      /* Centrage vertical */
+  margin-bottom: 2rem;      /* Espace entre le logo et le formulaire */
+}
+
+.logo {
+  width: 140px;
+  height: 120px;
+  object-fit: contain; /* ou cover selon le besoin */
 }

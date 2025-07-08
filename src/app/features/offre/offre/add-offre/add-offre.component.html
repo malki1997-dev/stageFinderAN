@@ -3,19 +3,20 @@
 <p-dialog header="Ajouter une Nouvelle Offre" [(visible)]="displayDialog" [modal]="true">
   <div class="dialog-content">
     <div class="p-field">
-      <label for="titre">Titre</label>
-      <input pInputText id="titre" [(ngModel)]="newOffre.anneesExperience" placeholder="Ex: Stage en Informatique" />
-    </div>
-    <div class="p-field">
       <label for="description">Description</label>
       <input pInputText id="description" [(ngModel)]="newOffre.description" placeholder="Ex: Stage de 6 mois en développement web" />
+    </div>
+
+    <div class="p-field">
+      <label for="titre">Expérience</label>
+      <input pInputText id="titre" [(ngModel)]="newOffre.anneesExperience" placeholder="Ex: au mois 2 mois" />
     </div>
 
     <div class="p-field">
       <label for="categorie">Catégorie</label>
       <p-dropdown id="categorie" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="name" optionValue="id" placeholder="Sélectionnez une catégorie"></p-dropdown>
     </div>
-    
+
     <div class="p-field">
       <label for="ville">Ville</label>
       <input pInputText id="ville" [(ngModel)]="newOffre.ville" placeholder="Ex: Oujda" />
