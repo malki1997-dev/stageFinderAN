@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
+      console.log('AAAAAAA');
       this.authService.login(email, password).subscribe({
         next: (user: UserDTO) => {
           // Stocker uniquement l'id et le role dans le localStorage
@@ -61,10 +62,11 @@ export class LoginComponent implements OnInit {
             role: user.role,
             nom:user.nom
           };
+            console.log('BBBBBB');
           localStorage.setItem('user', JSON.stringify(userData));
           console.log(userData);
           // Rediriger vers returnUrl ou /home par défaut
-          this.router.navigateByUrl(this.returnUrl || '');
+          this.router.navigate(['offre']);
         },
         error: (err) => {
           this.errorMessage = err.error.message || 'Email ou mot de passe incorrect.';
