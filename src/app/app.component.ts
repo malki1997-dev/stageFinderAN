@@ -10,7 +10,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { HomeComponent } from "./features/home/home.component";
 import { AuthService } from './features/auth/auth.service';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './features/auth/login/login.component';
 
 
 @Component({
@@ -26,8 +25,6 @@ import { LoginComponent } from './features/auth/login/login.component';
     FileUploadModule,
     InputTextModule,
     CommonModule,
-    HomeComponent,
-    LoginComponent
 ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

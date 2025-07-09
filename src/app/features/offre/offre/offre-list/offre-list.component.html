@@ -3,34 +3,35 @@
     <app-search-bar (search)="onSearch($event)"></app-search-bar>
   </div>
   <app-add-offre *ngIf="isRecruteur"></app-add-offre>
+  <app-add-offre></app-add-offre> <!-- Note : doublon détecté, voir ci-dessous -->
   <h2>OFFRES DE STAGE</h2>
-  <div class="job-card" *ngFor="let offre of offres">
-    <div class="job-header">
-      <div class="job-details">
-        <p class="description">{{ offre.description }}</p>
-        <p class="description">Expérience: {{ offre.anneesExperience }}</p>
-        <p class="location">
-          <i class="pi pi-map-marker"></i> {{ offre.ville }}
-        </p>
-        <p class="category">Domaine: {{ offre.categorieNom }}</p>
-        <p class="skills">Compétences: {{ offre.competenceExigee }}</p>
-        <p class="salary">Salaire: {{ offre.salaire + " MAD" }}</p>
+
+  <div class="job-grid">
+    <div class="job-card" *ngFor="let offre of offres">
+      <div class="job-content">
+        <h3 class="job-title">{{ offre.description }}</h3>
+        <p class="job-detail"><i class="pi pi-map-marker"></i> {{ offre.ville }}</p>
+        <p><b>Pré-emboche :</b> XX</p>
+        <p class="job-detail"><b>Expérience:</b> {{ offre.anneesExperience }}</p>
+        <b>Compétences Exigées:</b>
+        <div class="job-badges">
+          <p-chip *ngFor="let skill of offre.competenceExigee?.split(',')" [label]="skill.trim()" styleClass="skill-chip"></p-chip>
+        </div>
+        <p class="job-detail"><b>Rémunération:</b> {{ offre.salaire }} MAD</p>
+        <p class="job-meta"><b>Publié le:</b> {{ offre.datePublication | date:'dd/MM/yyyy' }}</p>
+        <p class="job-meta"><b>Expire le:</b> {{ offre.dateExpiration | date:'dd/MM/yyyy' }}</p>
+        <p class="job-meta"><b>Par:</b> {{ offre.publieParNom }} ({{ offre.nomEntreprise }})</p>
       </div>
-      <div class="job-meta">
-        <p class="publication-date">Publié le {{ offre.datePublication | date:'dd/MM/yyyy' }}</p>
-        <p class="expiration-date">Expire le {{ offre.dateExpiration | date:'dd/MM/yyyy' }}</p>
-        <p class="published-by">Publié par: {{ offre.publieParNom }}</p>
-        <p class="published-by">Nom d'Entreprise: {{ offre.nomEntreprise }}</p>
-        <div class="action-buttons">
-          <p-button *ngIf="isRecruteur || isAdmin" icon="pi pi-pencil" styleClass="edit-button" (click)="showEditDialog(offre)"></p-button>
-          <p-button *ngIf="isRecruteur || isAdmin" icon="pi pi-trash" styleClass="delete-button" (click)="deleteOffre(offre.id)"></p-button>
+      <div class="job-actions">
+        <p-button label="Postuler" styleClass="apply-button"></p-button>
+        <div class="admin-actions">
+          <p-button icon="pi pi-pencil" styleClass="edit-button" (click)="showEditDialog(offre)"></p-button>
+          <p-button icon="pi pi-trash" styleClass="delete-button" (click)="deleteOffre(offre.id)"></p-button>
         </div>
       </div>
     </div>
-    <p-button *ngIf="isStagiaire" label="Postuler" styleClass="recruiter-button" (click)="onPostule(offre.id)"></p-button>
   </div>
 
-  <!-- Ajout du Paginator -->
   <p-paginator
     [first]="currentPage * rowsPerPage"
     [rows]="rowsPerPage"
@@ -38,7 +39,6 @@
     (onPageChange)="onPageChange($event)"
     [rowsPerPageOptions]="[3, 5, 10]"
     [showCurrentPageReport]="true"
-    currentPageReportTemplate="{last}/{totalRecords} offres"
+    currentPageReportTemplate="Affichage {first} - {last} sur {totalRecords} offres"
   ></p-paginator>
-  <!-- currentPageReportTemplate="Affichage {first} - {last}/{totalRecords} offres" -->
 </div>

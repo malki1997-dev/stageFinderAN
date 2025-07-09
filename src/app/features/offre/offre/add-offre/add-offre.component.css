@@ -65,14 +65,14 @@
 }
 
 :host ::ng-deep .p-button {
-  background-color: #ff9500;
-  border-color: #ff9500;
+  background-color: #4e9ae7;
+  border-color: #4e9ae7;
   color: #ffffff;
 }
 
 :host ::ng-deep .p-button:hover {
-  background-color: #e08500;
-  border-color: #e08500;
+  background-color: #0f0e0e;
+  border-color: #0f0e0e;
   color: #ffffff;
 }
 
