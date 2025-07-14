@@ -1,0 +1,52 @@
+<p-menubar [model]="menuItems" class="shadow-md">
+  <ng-template pTemplate="start">
+    <div class="flex items-center gap-4">
+      <a href="#" class="logo">
+      <img src="/assets/images/LOGO.png" alt="StageFinder Logo" class="logo-icon" width="100" height="50">
+    </a>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <div class="flex items-center gap-4">
+      <!-- Notification -->
+      <p-button
+        icon="pi pi-bell"
+        [badge]="unreadNotifications"
+        badgeSeverity="danger"
+        styleClass="p-button-text p-button-rounded"
+
+        title="Notifications"
+      ></p-button>
+      <!-- (click)="showNotifications()" -->
+
+      <!-- Menu utilisateur -->
+      <p-menu #userMenu [model]="userMenuItems" [popup]="true"></p-menu>
+      <p-button
+        icon="pi pi-user"
+        styleClass="p-button-text p-button-rounded"
+        (click)="userMenu.toggle($event)"
+        title="Menu utilisateur"
+        label="utilisateur"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-menubar>
+
+<!-- Overlay pour les notifications -->
+<p-overlayPanel #notificationPanel>
+  <ng-template pTemplate="content">
+    <div class="w-80 max-h-96 overflow-y-auto">
+      <h3 class="text-lg font-semibold mb-2">Notifications</h3>
+      <ng-container *ngIf="notifications.length > 0; else noNotifications">
+        <div *ngFor="let notification of notifications" class="p-2 border-b">
+          <p class="text-sm">{{ notification.message }}</p>
+          <small class="text-gray-500">{{ notification.dateEnvoie | date:'short' }}</small>
+        </div>
+      </ng-container>
+      <ng-template #noNotifications>
+        <p class="text-sm text-gray-500">Aucune notification</p>
+      </ng-template>
+    </div>
+  </ng-template>
+</p-overlayPanel>

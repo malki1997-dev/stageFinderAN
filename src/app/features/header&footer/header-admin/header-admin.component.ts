@@ -57,7 +57,8 @@ export class HeaderAdminComponent implements OnInit {
     } else {
       this.userMenuItems = [
         { label: 'Connexion', routerLink: '/login' },
-        { label: 'S\'inscrire', routerLink: '/regchoix' }
+        { label: 'S\'inscrire', routerLink: '/regchoix' },
+        { label: 'Profil', routerLink: '/regchoix' },
       ];
     }
   }
