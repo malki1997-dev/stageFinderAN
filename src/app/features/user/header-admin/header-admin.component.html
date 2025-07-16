@@ -1,0 +1,39 @@
+<div class="navbar">
+  <!-- Partie gauche : logo et liens -->
+  <div class="navbar-left">
+    <a href="#" class="logo">
+      <img src="assets/images/sf.jpg" alt="StageFinder" class="logo-icon" width="100" height="50">
+    </a>
+    <a href="#" class="logo">StageFinder</a>
+    <a href="#" class="nav-link">OFFRES DE STAGE</a>
+    <a class="nav-link" (click)="tarifs()">NOS TARIFS</a>
+  </div>
+
+  <!-- Partie droite : menu utilisateur -->
+  <div class="navbar-right">
+    <div class="user-menu" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+      
+      <!-- ✅ Image utilisateur dynamique ou par défaut -->
+<img
+  *ngIf="isRecruteur && userImage"
+  [src]="userImage"
+  alt="Photo de profil"
+  style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;"
+>
+
+
+
+
+      <!-- ✅ Menu contextuel PrimeNG -->
+      <p-tieredMenu #menuRef [model]="userMenuItems" [popup]="true"></p-tieredMenu>
+
+      <!-- ✅ Bouton texte avec nom utilisateur -->
+      <p-button
+        [label]="userName"
+        icon="pi pi-user"
+        styleClass="p-button-text"
+        (click)="menuRef.toggle($event)">
+      </p-button>
+    </div>
+  </div>
+</div>

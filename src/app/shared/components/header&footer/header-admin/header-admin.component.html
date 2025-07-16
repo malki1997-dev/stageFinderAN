@@ -1,0 +1,22 @@
+<div class="navbar">
+  <div class="navbar-left">
+    <a href="#" class="logo">
+      <img src="assets/images/sf.jpg" alt="StageFinder Logo" class="logo-icon" width="100" height="50">
+    </a>
+    <a href="#" class="logo">StageFinder</a>
+    <a href="#" class="nav-link">OFFRES DE STAGE</a>
+    <a class="nav-link" (click)="tarifs()">NOS TARIFS</a>
+  </div>
+  <div class="navbar-right">
+    <p-button *ngIf="isAdmin" label="Liste des stagiaires" styleClass="cta-button" (click)="listeStagiaires()"></p-button>
+    <p-button *ngIf="isAdmin" label="Liste des entreprises" styleClass="recruiter-button" (click)="listeEntreprises()"></p-button>
+    <p-button *ngIf="isAdmin" label="Entreprises non acceptées" styleClass="na-recruiter-button" (click)="listeEntreprisesNA()"></p-button>
+    <p-button *ngIf="isRecruteur" label="Mes Offres" styleClass="na-recruiter-button" (click)="mesOffres()"></p-button>
+    <div class="user-menu">
+      <span class="user-name" *ngIf="userName">{{ userName }}</span>
+      <span class="user-name" *ngIf="!userName">Connexion</span>
+      <p-button icon="pi pi-globe" badge="" badgeClass="p-badge-danger" (click)="menu.toggle($event)" styleClass="p-button-rounded p-button-text"></p-button>
+      <p-tieredMenu #menu [model]="userMenuItems" [popup]="true"></p-tieredMenu>
+    </div>
+  </div>
+</div>

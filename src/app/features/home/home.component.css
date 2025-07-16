@@ -1,0 +1,37 @@
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+.bg-blue-600 {
+  background-color: #007bff;
+}
+
+.bg-gray-800 {
+  background-color: #2d3748;
+}
+
+.shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.p-button {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+.p-button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  .text-4xl {
+    font-size: 2rem;
+  }
+}

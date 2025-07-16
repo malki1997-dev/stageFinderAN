@@ -1,0 +1,85 @@
+<div class="reg-sta-container">
+  <div class="header">
+    <img src="assets/images/LOGO.png" alt="Stage Finder Logo" class="logo">
+  </div>
+
+  <h2>Inscription Stagiaire</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="stagiaire-form">
+
+    <!-- Nom -->
+    <div class="form-field">
+      <label for="nom">Nom</label>
+      <input pInputText id="nom" formControlName="nom" placeholder="Votre nom" />
+      <small *ngIf="registerForm.get('nom')?.invalid && registerForm.get('nom')?.touched" class="error">
+        Le nom est requis.
+      </small>
+    </div>
+
+    <!-- Email -->
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input pInputText id="email" formControlName="email" placeholder="Votre email" />
+      <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
+        Veuillez entrer un email valide.
+      </small>
+    </div>
+
+    <!-- Téléphone -->
+    <div class="form-field">
+      <label for="tel">Téléphone</label>
+      <input pInputText id="tel" formControlName="tel" placeholder="Votre numéro de téléphone" />
+      <small *ngIf="registerForm.get('tel')?.invalid && registerForm.get('tel')?.touched" class="error">
+        Numéro invalide (10 chiffres requis).
+      </small>
+    </div>
+
+    <!-- Mot de passe -->
+    <div class="form-field">
+      <label for="password">Mot de passe</label>
+      <p-password id="password" formControlName="password" placeholder="Votre mot de passe"
+        [toggleMask]="true" [feedback]="true"></p-password>
+      <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error">
+        Mot de passe requis (8 caractères minimum).
+      </small>
+    </div>
+
+    <!-- Confirmation mot de passe -->
+    <div class="form-field">
+      <label for="confirmPassword">Confirmation du mot de passe</label>
+      <p-password id="confirmPassword" formControlName="confirmPassword" placeholder="Confirmez le mot de passe"
+        [toggleMask]="true"></p-password>
+      <small *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched" class="error">
+        Les mots de passe ne correspondent pas.
+      </small>
+    </div>
+
+    <!-- CV (fichier classique sans PrimeNG) -->
+    <div class="form-field">
+      <label for="cvFile">CV (.pdf)</label>
+      <input
+        id="cvFile"
+        type="file"
+        accept=".pdf"
+        (change)="onCvSelected($event)"
+      />
+      <small *ngIf="cvFileError" class="error">
+        Veuillez sélectionner un fichier CV (.pdf).
+      </small>
+    </div>
+
+    <!-- Erreur globale -->
+    <div *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Bouton -->
+    <button
+      pButton
+      type="submit"
+      label="S'inscrire"
+      [disabled]="registerForm.invalid || cvFileError"
+      class="submit-button">
+    </button>
+  </form>
+</div>

@@ -1,0 +1,40 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="header">
+      <img src="assets/images/LOGO.png" alt="Stage Finder Logo" class="logo">
+      <div class="tabs">
+        <span class="tab inactive" (click)="regchoix()">Inscription</span>
+        <span class="tab active">Connexion</span>
+      </div>
+    </div>
+
+    <!-- ✅ Ajout (ngSubmit) -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+
+      <div class="field">
+        <label for="email">Email</label>
+        <!-- ✅ formControlName -->
+        <input type="email" id="email" placeholder="Email" formControlName="email" class="input-field">
+      </div>
+
+      <div class="field">
+        <label for="password">Mot de passe</label>
+        <!-- ✅ formControlName -->
+        <input type="password" id="password" placeholder="Mot de passe" formControlName="password" class="input-field">
+      </div>
+
+      <div class="options">
+        <label class="checkbox-container">
+          <input type="checkbox"> Se souvenir de moi
+        </label>
+        <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+      </div>
+
+      <!-- ✅ Le bouton déclenche submit -->
+      <button type="submit" class="submit-button">SE CONNECTER</button>
+
+      <!-- ✅ Affichage des erreurs -->
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </form>
+  </div>
+</div>

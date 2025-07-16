@@ -1,0 +1,44 @@
+<div class="job-listings">
+  <div class="search-bar-container">
+    <app-search-bar (search)="onSearch($event)"></app-search-bar>
+  </div>
+  <app-add-offre *ngIf="isRecruteur"></app-add-offre>
+  <app-add-offre></app-add-offre> <!-- Note : doublon détecté, voir ci-dessous -->
+  <h2>OFFRES DE STAGE</h2>
+
+  <div class="job-grid">
+    <div class="job-card" *ngFor="let offre of offres">
+      <div class="job-content">
+        <h3 class="job-title">{{ offre.description }}</h3>
+        <p class="job-detail"><i class="pi pi-map-marker"></i> {{ offre.ville }}</p>
+        <p><b>Pré-emboche :</b> XX</p>
+        <p class="job-detail"><b>Expérience:</b> {{ offre.anneesExperience }}</p>
+        <b>Compétences Exigées:</b>
+        <div class="job-badges">
+          <p-chip *ngFor="let skill of offre.competenceExigee?.split(',')" [label]="skill.trim()" styleClass="skill-chip"></p-chip>
+        </div>
+        <p class="job-detail"><b>Rémunération:</b> {{ offre.salaire }} MAD</p>
+        <p class="job-meta"><b>Publié le:</b> {{ offre.datePublication | date:'dd/MM/yyyy' }}</p>
+        <p class="job-meta"><b>Expire le:</b> {{ offre.dateExpiration | date:'dd/MM/yyyy' }}</p>
+        <p class="job-meta"><b>Par:</b> {{ offre.publieParNom }} ({{ offre.nomEntreprise }})</p>
+      </div>
+      <div class="job-actions">
+        <p-button label="Postuler" styleClass="apply-button"></p-button>
+        <div class="admin-actions">
+          <p-button icon="pi pi-pencil" styleClass="edit-button" (click)="showEditDialog(offre)"></p-button>
+          <p-button icon="pi pi-trash" styleClass="delete-button" (click)="deleteOffre(offre.id)"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-paginator
+    [first]="currentPage * rowsPerPage"
+    [rows]="rowsPerPage"
+    [totalRecords]="totalRecords"
+    (onPageChange)="onPageChange($event)"
+    [rowsPerPageOptions]="[3, 5, 10]"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Affichage {first} - {last} sur {totalRecords} offres"
+  ></p-paginator>
+</div>

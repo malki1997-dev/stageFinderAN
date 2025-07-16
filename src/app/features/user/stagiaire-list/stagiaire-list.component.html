@@ -1,0 +1,27 @@
+<div class="chart-container">
+  <h3>Liste des stagiaires</h3>
+  <p-table [value]="stagiaires" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>CV</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-stagiaire>
+      <tr>
+        <td>{{ stagiaire.nom }}</td>
+        <td>{{ stagiaire.email }}</td>
+        <td>{{ stagiaire.tel }}</td>
+        <td>
+          <p-button
+            label="Voir CV"
+            styleClass="p-button-link"
+            (onClick)="viewCV(stagiaire.cvFile)">
+          </p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

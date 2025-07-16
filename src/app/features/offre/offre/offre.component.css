@@ -1,0 +1,30 @@
+.app-container {
+  display: flex;
+  gap: 20px;
+}
+
+.main-content {
+  flex: 1;
+}
+
+
+.search-results {
+  text-align: center;
+  margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #2d3748;
+}
+
+.search-results h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-results pre {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}

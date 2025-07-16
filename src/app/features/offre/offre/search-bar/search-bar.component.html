@@ -1,0 +1,13 @@
+<div class="search-bar-container">
+  <span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input
+      pInputText
+      [(ngModel)]="searchQuery"
+      placeholder="Rechercher par ville"
+      (keyup.enter)="onSearch()"
+    />
+  </span>
+  <p-button label="Rechercher" icon="pi pi-search" (click)="onSearch()"></p-button>
+  <p-button label="Réinitialiser" icon="pi pi-times" (click)="onReset()" styleClass="p-button-secondary"></p-button>
+</div>

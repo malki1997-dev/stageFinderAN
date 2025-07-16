@@ -1,0 +1,42 @@
+<p-toast></p-toast>
+
+<p-dialog header="Modifier une Offre" [(visible)]="displayDialog" [modal]="true" (onHide)="cancel()">
+  <div class="dialog-content">
+    <div class="p-field">
+      <label for="titre">Titre</label>
+      <input pInputText id="titre" [(ngModel)]="offre.anneesExperience" placeholder="Ex: Stage en Informatique" />
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <input pInputText id="description" [(ngModel)]="offre.description" placeholder="Ex: Stage de 6 mois en développement web" />
+    </div>
+    <div class="p-field">
+      <label for="categorie">Catégorie</label>
+      <p-dropdown id="categorie" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="name" optionValue="id" placeholder="Sélectionnez une catégorie"></p-dropdown>
+    </div>
+    <div class="p-field">
+      <label for="ville">Ville</label>
+      <input pInputText id="ville" [(ngModel)]="offre.ville" placeholder="Ex: Oujda" />
+    </div>
+    <div class="p-field">
+      <label for="nomEntreprise">Nom de l'Entreprise</label>
+      <input pInputText id="nomEntreprise" [(ngModel)]="offre.nomEntreprise" placeholder="Ex: TechCorp" />
+    </div>
+    <div class="p-field">
+      <label for="salaire">Salaire (MAD)</label>
+      <input pInputText id="salaire" type="number" [(ngModel)]="offre.salaire" placeholder="Ex: 8000" />
+    </div>
+    <div class="p-field">
+      <label for="competenceExigee">Compétences Exigées</label>
+      <input pInputText id="competenceExigee" [(ngModel)]="offre.competenceExigee" placeholder="Ex: JAVA, Spring Boot, Angular" />
+    </div>
+    <div class="p-field">
+      <label for="dateExpiration">Date d'Expiration</label>
+      <p-calendar id="dateExpiration" [(ngModel)]="offre.dateExpiration" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Annuler" icon="pi pi-times" styleClass="p-button-cancel" (click)="cancel()"></p-button>
+    <p-button label="Enregistrer" icon="pi pi-check" styleClass="p-button-save" (click)="onSubmit()"></p-button>
+  </ng-template>
+</p-dialog>

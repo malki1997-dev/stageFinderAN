@@ -1,0 +1,65 @@
+<div class="edit-profile-container">
+  <h2>Modifier mon profil</h2>
+  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  <form (ngSubmit)="onSubmit()" class="profile-form">
+    <!-- Nom -->
+    <div class="form-group">
+      <label for="nom">Nom *</label>
+      <input type="text" id="nom" [(ngModel)]="user.nom" name="nom" required placeholder="Entrez votre nom">
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input type="email" id="email" [(ngModel)]="user.email" name="email" required placeholder="Entrez votre email">
+    </div>
+
+    <!-- Téléphone -->
+    <div class="form-group">
+      <label for="tel">Téléphone</label>
+      <input type="tel" id="tel" [(ngModel)]="user.tel" name="tel" placeholder="Entrez votre numéro de téléphone">
+    </div>
+
+    <!-- Adresse -->
+    <div class="form-group">
+      <label for="adresse">Adresse</label>
+      <input type="text" id="adresse" [(ngModel)]="user.adresse" name="adresse" placeholder="Entrez votre adresse">
+    </div>
+
+    <!-- Nom de l'entreprise (pour les recruteurs) -->
+    <div class="form-group" *ngIf="user.role === 'RECRUTEUR'">
+      <label for="nomEntreprise">Nom de l'entreprise</label>
+      <input type="text" id="nomEntreprise" [(ngModel)]="user.nomEntreprise" name="nomEntreprise" placeholder="Entrez le nom de l'entreprise">
+    </div>
+
+    <!-- RC (pour les recruteurs) -->
+    <div class="form-group" *ngIf="user.role === 'RECRUTEUR'">
+      <label for="rc">RC</label>
+      <input type="text" id="rc" [(ngModel)]="user.rc" name="rc" placeholder="Entrez le registre de commerce">
+    </div>
+
+    <!-- ICE (pour les recruteurs) -->
+    <div class="form-group" *ngIf="user.role === 'RECRUTEUR'">
+      <label for="ice">ICE</label>
+      <input type="text" id="ice" [(ngModel)]="user.ice" name="ice" placeholder="Entrez l'ICE">
+    </div>
+
+    <!-- CV (pour les stagiaires) -->
+    <div class="form-group" *ngIf="user.role === 'STAGIAIRE'">
+      <label for="cvFile">CV</label>
+      <input type="file" id="cvFile" (change)="onCvFileChange($event)" accept=".pdf">
+      <p *ngIf="user.cvFile" class="file-info">CV actuel : {{ user.cvFile }}</p>
+    </div>
+
+    <!-- Image (photo de profil) -->
+    <div class="form-group">
+      <label for="image">Photo de profil</label>
+      <input type="file" id="image" (change)="onImageChange($event)" accept="image/*">
+      <p *ngIf="user.image" class="file-info">Image actuelle : {{ user.image }}</p>
+    </div>
+
+    <!-- Bouton de soumission -->
+    <p-button type="submit" label="Enregistrer" [disabled]="!user.nom || !user.email || isSubmitting" [style]="{'margin-top': '20px'}"></p-button>
+  </form>
+</div>

@@ -1,0 +1,38 @@
+.sidebar {
+  background-color: #f5faff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 250px;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  text-transform: uppercase;
+}
+
+:host ::ng-deep .p-checkbox {
+  display: block;
+  margin-bottom: 10px;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-label {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+:host ::ng-deep .p-dropdown {
+  width: 100%;
+  border-radius: 4px;
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-label {
+  font-size: 14px;
+  color: var(--text-color-secondary);
+}

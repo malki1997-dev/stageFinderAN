@@ -1,0 +1,48 @@
+<div class="dashboard-container">
+  <div class="chart-card">
+    <h2>Inscriptions d'Utilisateurs par Mois</h2>
+    <div class="chart-wrapper">
+      <p-chart type="bar" [data]="barChartData" [options]="barChartOptions" class="bar-chart"></p-chart>
+    </div>
+  </div>
+  <div class="chart-card">
+    <h2>Publications de Stages par Mois</h2>
+    <div class="chart-wrapper">
+      <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions" class="line-chart"></p-chart>
+    </div>
+  </div>
+  <div class="chart-card">
+    <h2>Catégories d'Offres les Plus Publiées</h2>
+    <div class="chart-wrapper">
+      <p-chart type="pie" [data]="pieChartData" [options]="pieChartOptions" class="pie-chart"></p-chart>
+    </div>
+  </div>
+
+  <!-- Graphique des statistiques des utilisateurs -->
+  <div class="chart-card">
+    <h2>Statistiques des Utilisateurs</h2>
+    <div class="chart-wrapper">
+      <p-chart type="bar" [data]="barChartData2" [options]="barChartOptions2" class="bar-chart"></p-chart>
+    </div>
+  </div>
+
+  <!-- Cartes -->
+  <div class="card-grid">
+    <p-card header="Nombre de Candidatures" class="dashboard-card">
+      <p class="card-value">{{ totalCandidatures }}</p>
+      <p-button label="Voir les candidatures" icon="pi pi-file" styleClass="p-button-text"></p-button>
+    </p-card>
+
+    <p-card header="Nombre d'Offres" class="dashboard-card">
+      <p class="card-value">{{ totalOffres }}</p>
+      <p-button label="Voir les offres" icon="pi pi-file" styleClass="p-button-text" (onClick)="listeOffres()"></p-button>
+    </p-card>
+  </div>
+  <div class="card-grid">
+    <p-card header="Recruteurs Non Acceptés" class="dashboard-card">
+      <p class="card-value">{{ totalNonAcceptedRecruteurs }}</p>
+      <!-- Bouton optionnel si vous voulez ajouter une action -->
+      <p-button label="Voir les recruteurs" icon="pi pi-users" styleClass="p-button-text" (onClick)="voirRecruteursNonAcceptes()"></p-button>
+    </p-card>
+  </div>
+</div>

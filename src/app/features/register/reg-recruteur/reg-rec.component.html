@@ -1,0 +1,83 @@
+<div class="reg-rec-container">
+  <div class="header">
+    <img src="assets/images/LOGO.png" alt="Stage Finder Logo" class="logo" />
+  </div>
+
+  <h2>Inscription Recruteur</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="recruteur-form">
+    <div class="form-field">
+      <label for="nom">Nom</label>
+      <input pInputText id="nom" formControlName="nom" placeholder="Votre nom" />
+      <small *ngIf="registerForm.get('nom')?.invalid && registerForm.get('nom')?.touched" class="error">
+        Le nom est requis.
+      </small>
+    </div>
+
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input pInputText id="email" formControlName="email" placeholder="Votre email" />
+      <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
+        Veuillez entrer un email valide.
+      </small>
+    </div>
+
+    <div class="form-field">
+      <label for="nomEntreprise">Nom de l'entreprise</label>
+      <input pInputText id="nomEntreprise" formControlName="nomEntreprise" placeholder="Nom de votre entreprise" />
+    </div>
+
+    <div class="form-field">
+      <label for="rc">RC</label>
+      <input pInputText id="rc" formControlName="rc" placeholder="RC de l'entreprise" />
+    </div>
+
+    <div class="form-field">
+      <label for="ice">ICE</label>
+      <input pInputText id="ice" formControlName="ice" placeholder="ICE de l'entreprise" />
+    </div>
+
+    <div class="form-field">
+      <label for="tel">Téléphone</label>
+      <input pInputText id="tel" formControlName="tel" placeholder="06XXXXXXXX" />
+    </div>
+
+    <div class="form-field">
+      <label for="adresse">Adresse</label>
+      <input pInputText id="adresse" formControlName="adresse" placeholder="Adresse complète" />
+    </div>
+
+    <div class="form-field">
+      <label for="password">Mot de passe</label>
+      <p-password id="password" formControlName="password" placeholder="Mot de passe" [toggleMask]="true"></p-password>
+    </div>
+
+    <div class="form-field">
+      <label for="confirmPassword">Confirmation du mot de passe</label>
+      <p-password id="confirmPassword" formControlName="confirmPassword" placeholder="Confirmer le mot de passe" [toggleMask]="true"></p-password>
+      <small *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched" class="error">
+        Les mots de passe ne correspondent pas.
+      </small>
+    </div>
+
+    <div class="form-field">
+      <label for="logo">Logo</label>
+      <p-fileUpload
+        name="logo"
+        mode="basic"
+        accept="image/*"
+        maxFileSize="1000000"
+        (onSelect)="onImageSelected($event)"
+        chooseLabel="Choisir un logo">
+      </p-fileUpload>
+    </div>
+
+<button 
+  pButton 
+  type="submit" 
+  label="S'inscrire" 
+  class="submit-button" 
+  [disabled]="registerForm.invalid || !logoFile">
+</button>
+  </form>
+</div>

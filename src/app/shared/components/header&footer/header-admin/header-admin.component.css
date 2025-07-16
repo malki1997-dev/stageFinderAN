@@ -1,0 +1,86 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-link {
+  font-size: 16px;
+  color: #6c757d;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+:host ::ng-deep .cta-button {
+  background-color: #58b724 !important;
+  border-color: #58b724 !important;
+}
+
+:host ::ng-deep .cta-button .p-button-label {
+  color: #ffffff !important;
+}
+
+:host ::ng-deep .recruiter-button {
+  background-color: #F28C38 !important;
+  border-color: #F28C38 !important;
+}
+
+:host ::ng-deep .recruiter-button .p-button-label {
+  color: #ffffff !important;
+}
+
+:host ::ng-deep .na-recruiter-button {
+  background-color: #ef4444 !important;
+  border-color: #ef4444 !important;
+}
+
+:host ::ng-deep .na-recruiter-button .p-button-label {
+  color: #ffffff !important;
+}
+
+:host ::ng-deep .p-button.p-button-rounded {
+  width: 50px;
+  height: 50px;
+}
+
+:host ::ng-deep .p-badge {
+  font-size: 20px;
+  min-width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.logo-icon {
+  width: 100px;
+  height: 50px;
+  object-fit: contain;
+}

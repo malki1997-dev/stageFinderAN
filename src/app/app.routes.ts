@@ -1,0 +1,30 @@
+import { Routes } from '@angular/router';
+import { HeaderAdminComponent } from './features/user/header-admin/header-admin.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { RegchoixComponent } from './features/register/reg-choix/regchoix.component';
+//import { RegRecComponent } from './features/register/reg-recruteur/reg-rec.component';
+//import { RegStaComponent } from './features/register/reg-stagiaire/reg-sta.component';
+import { TarifsStagiaireComponent } from './features/tarifs-stagiaire/tarifs-stagiaire.component';
+import { DashbordAdminComponent } from './features/dashboard-admin/dashbord-admin/dashbord-admin.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { HomeComponent } from './features/home/home.component';
+
+export const routes: Routes = [
+  {path:"login", component : LoginComponent},
+  {path:"home", component : HomeComponent,
+    //canActivate:[AuthGuard]
+  },
+  {path:"regchoix", component : RegchoixComponent },
+    { path: 'regrec', loadComponent: () => import('./features/register/reg-recruteur/reg-rec.component').then(m => m.RegisterRecruteurComponent) },
+  { path: 'regsta', loadComponent: () => import('./features/register/reg-stagiaire/reg-sta.component').then(m => m.RegisterStagiaireComponent) },
+  {path:"tarifs-stagiaire", component : TarifsStagiaireComponent},
+  { path : "" , loadChildren:()=>import('../app/features/offre/offre.module').then(m=>m.OffreModule),
+    //canActivate:[AuthGuard]
+  },
+  { path : "" , loadChildren:()=>import('../app/features/user/user.module').then(m=>m.UserModule)},
+  { path : "" , loadChildren:()=>import('../app/features/candidature/candidature.module').then(m=>m.CandidatureModule)},
+  { path : "" , loadChildren:()=>import('../app/features/dashboard-admin/dashboard-admin.module').then(m=>m.DashboardAdminModule)},
+
+  //{ path : "", component:HeaderAdminComponent},
+
+];

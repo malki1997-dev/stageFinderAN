@@ -1,0 +1,70 @@
+<div class="candidatures-container">
+  <h2>Stagiaires ayant postulé</h2>
+  <p-table [value]="candidatures" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Date de candidature</th>
+        <th>Statut</th>
+        <th>CV</th>
+        <th>Lettre de motivation</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-candidature>
+      <tr>
+        <td>{{ candidature.userNom }}</td>
+        <td>{{ candidature.userEmail }}</td>
+        <td>{{ candidature.dateCandidature | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>
+          <p-select
+            [options]="statutOptions"
+            optionLabel="label"
+            optionValue="value"
+            [(ngModel)]="candidature.statutCandidature"
+            (ngModelChange)="updateStatus(candidature, $event)"
+            [style]="{ width: '150px' }"
+          >
+            <!-- Template pour le label affiché -->
+            <ng-template let-item pTemplate="selectedItem">
+              <span class="select-display-text">{{ item.label }}</span>
+            </ng-template>
+
+            <!-- Template pour les items dans le menu -->
+            <ng-template let-item pTemplate="item">
+              <span>{{ item.label }}</span>
+            </ng-template>
+          </p-select>
+        </td>
+        <td>
+          <a
+            *ngIf="candidature.cvFileName"
+            [href]="getFileUrl(candidature.cvFileName, 'cv')"
+            target="_blank"
+            class="file-link"
+          >Voir CV</a>
+          <span *ngIf="!candidature.cvFileName">Aucun CV</span>
+        </td>
+        <td>
+          <a
+            *ngIf="candidature.lettreMotivationFileName"
+            [href]="getFileUrl(candidature.lettreMotivationFileName, 'lettre')"
+            target="_blank"
+            class="file-link"
+          >Voir Lettre</a>
+          <span *ngIf="!candidature.lettreMotivationFileName">Aucune lettre</span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-paginator
+    [first]="currentPage * rowsPerPage"
+    [rows]="rowsPerPage"
+    [totalRecords]="totalRecords"
+    (onPageChange)="onPageChange($event)"
+    [rowsPerPageOptions]="[10, 20, 50]"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="{last}/{totalRecords} candidatures"
+  ></p-paginator>
+</div>
