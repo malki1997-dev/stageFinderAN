@@ -1,46 +1,27 @@
 <h2>Ajouter un utilisateur</h2>
 
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <!-- Nom -->
+
   <div class="form-group">
     <label>Nom :</label>
     <input type="text" pInputText formControlName="nom" />
-    <small *ngIf="submitted && userForm.get('nom')?.invalid" class="error-message">
-      Le nom est requis.
-    </small>
   </div>
 
-  <!-- Email -->
   <div class="form-group">
     <label>Email :</label>
     <input type="email" pInputText formControlName="email" />
-    <small *ngIf="submitted && userForm.get('email')?.errors?.['required']" class="error-message">
-      L'email est requis.
-    </small>
-    <small *ngIf="submitted && userForm.get('email')?.errors?.['email']" class="error-message">
-      L'email n'est pas valide.
-    </small>
   </div>
 
-  <!-- Mot de passe -->
   <div class="form-group">
     <label>Mot de passe :</label>
     <input type="password" pPassword formControlName="password" />
-    <small *ngIf="submitted && userForm.get('password')?.invalid" class="error-message">
-      Le mot de passe est requis.
-    </small>
   </div>
 
-  <!-- Téléphone -->
   <div class="form-group">
     <label>Téléphone :</label>
     <input type="text" pInputText formControlName="tel" />
-    <small *ngIf="submitted && userForm.get('tel')?.invalid" class="error-message">
-      Le téléphone est requis.
-    </small>
   </div>
 
-  <!-- Rôle -->
   <div class="form-group">
     <label>Rôle :</label>
     <p-dropdown
@@ -49,62 +30,41 @@
       placeholder="Sélectionner un rôle"
       (onChange)="onRoleChange($event.value)">
     </p-dropdown>
-    <small *ngIf="submitted && userForm.get('role')?.invalid" class="error-message">
-      Le rôle est requis.
-    </small>
   </div>
 
-  <!-- STAGIAIRE uniquement -->
-  <div *ngIf="selectedRole === 'STAGIAIRE'" class="form-group">
+  <!-- Stagiaire : Upload CV -->
+  <div class="form-group" *ngIf="selectedRole === 'STAGIAIRE'">
     <label>CV (PDF) :</label>
-    <input type="file" (change)="onFileSelect($event, 'cvFile')" accept=".pdf" />
-    <small *ngIf="submitted && !cvFile" class="error-message">
-      Le CV est requis.
-    </small>
+    <input type="file" (change)="onFileSelect($event, 'cvFile')" />
   </div>
 
-  <!-- RECRUTEUR uniquement -->
+  <!-- Recruteur : Champs supplémentaires -->
   <div *ngIf="selectedRole === 'RECRUTEUR'">
     <div class="form-group">
       <label>Nom de l'entreprise :</label>
       <input type="text" pInputText formControlName="nomEntreprise" />
-      <small *ngIf="submitted && userForm.get('nomEntreprise')?.invalid" class="error-message">
-        Le nom de l'entreprise est requis.
-      </small>
     </div>
 
     <div class="form-group">
       <label>RC :</label>
       <input type="text" pInputText formControlName="rc" />
-      <small *ngIf="submitted && userForm.get('rc')?.invalid" class="error-message">
-        Le RC est requis.
-      </small>
     </div>
 
     <div class="form-group">
       <label>ICE :</label>
       <input type="text" pInputText formControlName="ice" />
-      <small *ngIf="submitted && userForm.get('ice')?.invalid" class="error-message">
-        L'ICE est requis.
-      </small>
     </div>
 
     <div class="form-group">
       <label>Adresse :</label>
       <input type="text" pInputText formControlName="adresse" />
-      <small *ngIf="submitted && userForm.get('adresse')?.invalid" class="error-message">
-        L'adresse est requise.
-      </small>
     </div>
 
     <div class="form-group">
-      <label>Logo de l'entreprise :</label>
-      <input type="file" (change)="onFileSelect($event, 'logoFile')" accept="image/*" />
-      <small *ngIf="submitted && !logoFile" class="error-message">
-        Le logo est requis.
-      </small>
+      <label>Logo (Image) :</label>
+      <input type="file" (change)="onFileSelect($event, 'logoFile')" />
     </div>
   </div>
 
-  <button type="submit" pButton label="Ajouter" [disabled]="userForm.invalid && !canSubmitFiles()"></button>
+  <button type="submit" pButton label="Ajouter" [disabled]="userForm.invalid"></button>
 </form>

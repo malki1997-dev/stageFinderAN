@@ -2,8 +2,8 @@
   <ng-template pTemplate="start">
     <div class="flex items-center gap-4">
       <a href="#" class="logo">
-      <img src="/assets/images/LOGO.png" alt="StageFinder Logo" class="logo-icon" width="100" height="50">
-    </a>
+        <img src="/assets/images/LOGO.png" alt="StageFinder Logo" class="logo-icon" width="100" height="50">
+      </a>
     </div>
   </ng-template>
 
@@ -15,20 +15,11 @@
         [badge]="unreadNotifications"
         badgeSeverity="danger"
         styleClass="p-button-text p-button-rounded"
-
         title="Notifications"
       ></p-button>
-      <!-- (click)="showNotifications()" -->
 
-      <!-- Menu utilisateur -->
-      <p-menu #userMenu [model]="userMenuItems" [popup]="true"></p-menu>
-      <p-button
-        icon="pi pi-user"
-        styleClass="p-button-text p-button-rounded"
-        (click)="userMenu.toggle($event)"
-        title="Menu utilisateur"
-        label="utilisateur"
-      ></p-button>
+      <!-- ✅ Intégration du menu utilisateur comme sous-composant -->
+      <app-header-admin></app-header-admin>
     </div>
   </ng-template>
 </p-menubar>

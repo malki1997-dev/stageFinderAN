@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './../user.service';
+
+// PrimeNG
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
@@ -46,7 +48,9 @@ export class AddUserComponent {
       password: ['', Validators.required],
       tel: ['', Validators.required],
       role: ['', Validators.required],
-      nomEntreprise: [''], // Pour RECRUTEUR
+
+      // Champs spécifiques au recruteur
+      nomEntreprise: [''],
       rc: [''],
       ice: [''],
       adresse: ['']
@@ -66,43 +70,60 @@ export class AddUserComponent {
     }
   }
 
-  canSubmitFiles(): boolean {
-    if (this.selectedRole === 'STAGIAIRE') return !!this.cvFile;
-    if (this.selectedRole === 'RECRUTEUR') return !!this.logoFile;
-    return true;
-  }
-
   onSubmit(): void {
-    this.submitted = true;
+  this.submitted = true;
+  if (this.userForm.invalid) return;
 
-    if (this.userForm.invalid || !this.canSubmitFiles()) return;
+  const raw = this.userForm.value;
 
-    const formValue = this.userForm.value;
+  // Construire dynamiquement le bon objet utilisateur
+  const userPayload: any = {
+    nom: raw.nom,
+    email: raw.email,
+    password: raw.password,
+    tel: raw.tel,
+    role: raw.role
+  };
 
-    const formData = new FormData();
-    formData.append('user', new Blob([JSON.stringify(formValue)], { type: 'application/json' }));
-
-    if (this.selectedRole === 'STAGIAIRE' && this.cvFile) {
-      formData.append('cvFile', this.cvFile);
-    }
-
-    if (this.selectedRole === 'RECRUTEUR' && this.logoFile) {
-      formData.append('image', this.logoFile);
-    }
-
-    this.userService.registerWithFormData(formData).subscribe({
-      next: () => {
-        alert('✅ Utilisateur ajouté avec succès');
-        this.userForm.reset();
-        this.cvFile = null;
-        this.logoFile = null;
-        this.selectedRole = '';
-        this.submitted = false;
-      },
-      error: (err) => {
-        console.error(err);
-        alert('❌ Une erreur est survenue');
-      }
-    });
+  if (raw.role === 'RECRUTEUR') {
+    userPayload.nomEntreprise = raw.nomEntreprise;
+    userPayload.rc = raw.rc;
+    userPayload.ice = raw.ice;
+    userPayload.adresse = raw.adresse;
   }
+
+  // ✅ Supprimer explicitement les champs recruteur si c'est un stagiaire
+  if (raw.role === 'STAGIAIRE') {
+    delete userPayload.nomEntreprise;
+    delete userPayload.rc;
+    delete userPayload.ice;
+    delete userPayload.adresse;
+  }
+
+  const formData = new FormData();
+  formData.append('user', new Blob([JSON.stringify(userPayload)], { type: 'application/json' }));
+
+  if (raw.role === 'STAGIAIRE' && this.cvFile) {
+    formData.append('cvFile', this.cvFile);
+  }
+
+  if (raw.role === 'RECRUTEUR' && this.logoFile) {
+    formData.append('image', this.logoFile);
+  }
+
+  this.userService.registerWithFormData(formData).subscribe({
+    next: () => {
+      alert('✅ Utilisateur ajouté avec succès');
+      this.userForm.reset();
+      this.selectedRole = '';
+      this.cvFile = null;
+      this.logoFile = null;
+      this.submitted = false;
+    },
+    error: (err) => {
+      console.error(err);
+      alert('❌ Une erreur est survenue lors de l’enregistrement');
+    }
+  });
+}
 }

@@ -1,5 +1,6 @@
 <div class="chart-container">
   <h3>Liste des recruteurs</h3>
+
   <p-table [value]="recruteurs" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
       <tr>
@@ -11,10 +12,11 @@
         <th>ICE</th>
         <th>Valide</th>
         <th>Adresse</th>
-        <th>Action</th>
+        <th>Actions</th>
         <th>Image</th>
       </tr>
     </ng-template>
+
     <ng-template pTemplate="body" let-recruteur>
       <tr>
         <td>{{ recruteur.nom }}</td>
@@ -25,18 +27,51 @@
         <td>{{ recruteur.ice }}</td>
         <td>{{ recruteur.estValide ? 'Oui' : 'Non' }}</td>
         <td>{{ recruteur.adresse }}</td>
-        <td>
+
+        <td class="actions-cell">
           <p-button
             [label]="recruteur.estValide ? 'Refuser' : 'Accepter'"
-            [styleClass]="recruteur.estValide ? 'p-button-danger' : 'p-button-success'"
-            (onClick)="toggleEstValide(recruteur)"
-          ></p-button>
-        </td>
-        <td>
-<img *ngIf="recruteur.imageUrl" [src]="recruteur.imageUrl" width="60" height="60" style="object-fit: cover; border-radius: 5px;"  alt="Logo" />
+            [styleClass]="recruteur.estValide ? 'p-button-danger p-mr-2' : 'p-button-success p-mr-2'"
+            (onClick)="toggleEstValide(recruteur)">
+          </p-button>
 
+          <p-button
+            label="Modifier"
+            icon="pi pi-pencil"
+            class="p-button-warning"
+            (onClick)="openEditDialog(recruteur)">
+          </p-button>
+            <p-button
+    icon="pi pi-trash"
+    class="p-button-danger"
+    label="Supprimer"
+    (onClick)="deleteRecruteur(recruteur.id)">
+  </p-button>
+        </td>
+
+        <td>
+          <img *ngIf="recruteur.imageUrl"
+               [src]="recruteur.imageUrl"
+               width="60"
+               height="60"
+               style="object-fit: cover; border-radius: 5px;"
+               alt="Logo" />
         </td>
       </tr>
     </ng-template>
   </p-table>
+
+  <!-- ✅ DIALOGUE MODIFICATION -->
+  <p-dialog header="Modifier Recruteur"
+            [(visible)]="showEditDialog"
+            [modal]="true"
+            [style]="{width: '40vw'}"
+            (onHide)="selectedRecruteur = null">
+    <app-edit-user
+      *ngIf="selectedRecruteur"
+      [user]="selectedRecruteur"
+      (updated)="onUserUpdated()"
+      (cancel)="showEditDialog = false">
+    </app-edit-user>
+  </p-dialog>
 </div>

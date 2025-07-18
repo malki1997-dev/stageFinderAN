@@ -6,6 +6,7 @@ import { NonAcceptedRecruteursListComponent } from './non-accepted-recruteurs-li
 import { UserOffresComponent } from './user-offres/user-offres.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 const routes: Routes = [
   {path:"stagiaire-list", component:StagiaireListComponent},
@@ -13,7 +14,9 @@ const routes: Routes = [
   {path:"na-recruteur-list", component:NonAcceptedRecruteursListComponent},
   {path:"mes-offres", component:UserOffresComponent},
   {path:"edit-profile", component:EditProfileComponent},
-      { path: 'add-user', component: AddUserComponent }
+      { path: 'add-user', component: AddUserComponent },
+
+      { path: 'edit-user/:id', component: EditUserComponent }
 
 ];
 

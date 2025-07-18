@@ -1,0 +1,69 @@
+<div class="edit-form">
+  <h4>Modifier {{ user.role === 'RECRUTEUR' ? 'Recruteur' : 'Stagiaire' }}</h4>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-group">
+      <label for="nom">Nom :</label>
+      <input id="nom" type="text" pInputText formControlName="nom" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email :</label>
+      <input id="email" type="email" pInputText formControlName="email" />
+    </div>
+
+    <div class="form-group">
+      <label for="tel">Téléphone :</label>
+      <input id="tel" type="text" pInputText formControlName="tel" />
+    </div>
+
+    <!-- Champs spécifiques au recruteur -->
+    <ng-container *ngIf="user.role === 'RECRUTEUR'">
+      <div class="form-group">
+        <label for="nomEntreprise">Nom Entreprise :</label>
+        <input id="nomEntreprise" type="text" pInputText formControlName="nomEntreprise" />
+      </div>
+
+      <div class="form-group">
+        <label for="rc">RC :</label>
+        <input id="rc" type="text" pInputText formControlName="rc" />
+      </div>
+
+      <div class="form-group">
+        <label for="ice">ICE :</label>
+        <input id="ice" type="text" pInputText formControlName="ice" />
+      </div>
+
+      <div class="form-group">
+        <label for="adresse">Adresse :</label>
+        <input id="adresse" type="text" pInputText formControlName="adresse" />
+      </div>
+    </ng-container>
+
+    <!-- Champs spécifiques au stagiaire -->
+    <ng-container *ngIf="user.role === 'STAGIAIRE'">
+      <div class="form-group">
+        <label for="cv">CV :</label>
+        <input id="cv" type="file" (change)="onFileChange($event)" />
+      </div>
+    </ng-container>
+    <div class="form-group" *ngIf="user.role === 'RECRUTEUR'">
+  <label for="image">Image :</label>
+
+  <!-- Afficher image actuelle si disponible -->
+  <img *ngIf="user.imageUrl"
+       [src]="user.imageUrl"
+       alt="Image actuelle"
+       width="80"
+       height="80"
+       style="object-fit: cover; border-radius: 6px; margin-bottom: 0.5rem;" />
+
+  <input id="image" type="file" (change)="onImageChange($event)" />
+</div>
+
+    <div class="form-actions">
+      <button pButton type="submit" label="Enregistrer" [disabled]="form.invalid"></button>
+      <button pButton type="button" label="Annuler" (click)="close()" class="p-button-secondary"></button>
+    </div>
+  </form>
+</div>

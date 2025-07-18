@@ -1,8 +1,7 @@
-//import { HeaderAdminComponent } from './../../../shared/components/header&footer/header-admin/header-admin.component';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 //import { NotificationService } from '../../services/notification.service';
-//import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 //import { Notification } from '../../models/notification.model';
 import { MenubarModule } from 'primeng/menubar';
@@ -10,21 +9,28 @@ import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DatePipe } from '@angular/common';
-//ajiout
-import { HeaderAdminComponent } from '../../user/header-admin/header-admin.component';
-import { AuthService } from '../../auth/auth.service'; // Assurez-vous que le chemin est correct
+import { HeaderAdminComponent } from "../../user/header-admin/header-admin.component";
+
+import { ViewChild } from '@angular/core';
+import { Menu } from 'primeng/menu';
+
 
 @Component({
   selector: 'app-navbar',
+    standalone: true,
   imports: [MenubarModule, ButtonModule, MenuModule, OverlayPanelModule, DatePipe, HeaderAdminComponent],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
   menuItems: MenuItem[] = [];
   userMenuItems: MenuItem[] = [];
   notifications: Notification[] = [];
   unreadNotifications: string = '0';
+  isLoggedIn = false;
+
+    @ViewChild('userMenu') userMenu!: Menu;
+
 
   constructor(
     // private notificationService: NotificationService,
@@ -35,6 +41,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.setupMenuItems();
     // this.loadNotifications();
+    const token = localStorage.getItem('token'); // ou sessionStorage
+  this.isLoggedIn = !!token;
   }
 
   setupMenuItems(): void {

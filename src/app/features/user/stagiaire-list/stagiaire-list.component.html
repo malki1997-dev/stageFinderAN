@@ -1,12 +1,14 @@
 <div class="chart-container">
   <h3>Liste des stagiaires</h3>
-  <p-table [value]="stagiaires" [tableStyle]="{'min-width': '50rem'}">
+
+  <p-table [value]="stagiaires" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
         <th>Nom</th>
         <th>Email</th>
         <th>Téléphone</th>
         <th>CV</th>
+        <th>Actions</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-stagiaire>
@@ -21,7 +23,31 @@
             (onClick)="viewCV(stagiaire.cvFile)">
           </p-button>
         </td>
+        <td>
+          <div style="display: flex; gap: 0.5rem;">
+            <p-button
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-text p-button-info"
+              (onClick)="editStagiaire(stagiaire)">
+            </p-button>
+                        <p-button
+    icon="pi pi-trash"
+    class="p-button-danger"
+    label="Supprimer"
+    (onClick)="deleteStagiaire(stagiaire.id)">
+  </p-button>
+          </div>
+        </td>
       </tr>
     </ng-template>
   </p-table>
+
+  <!-- Formulaire d'édition -->
+  <div *ngIf="selectedUserToEdit" class="edit-container">
+    <app-edit-user
+      [user]="selectedUserToEdit"
+      (updated)="loadStagiaires(); closeEditForm()"
+      (close)="closeEditForm()">
+    </app-edit-user>
+  </div>
 </div>
