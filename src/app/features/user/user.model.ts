@@ -29,6 +29,7 @@ export interface UserDTO {
   adresse?: string;
   image?: string;
   role?: Role;
+  password?: string
 
 imageUrl?: string | null;
 

@@ -75,7 +75,14 @@ export class RegisterRecruteurComponent {
 
     this.authService.registerWithFormData(formData).subscribe({
       next: () => this.router.navigate(['/login']),
-      error: () => this.errorMessage = "Erreur lors de l'inscription."
+error: (err) => {
+  console.error("Erreur :", err);
+  if (err.error && err.error.message) {
+    this.errorMessage = err.error.message; // par exemple "Email déjà utilisé"
+  } else {
+    this.errorMessage = "Erreur lors de l'inscription.";
+  }
+}
     });
   }
 

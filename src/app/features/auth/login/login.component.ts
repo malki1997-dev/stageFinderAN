@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -50,7 +51,7 @@ regchoix(): void {
 
     const { email, password } = this.loginForm.value;
 
-    this.authService.login(email, password).subscribe({
+this.authService.login({ email, password }).subscribe({
       next: (res) => {
 //        const decoded = this.authService.getDecodedToken();
 const decoded = this.authService.getDecodedToken();

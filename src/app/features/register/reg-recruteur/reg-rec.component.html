@@ -5,6 +5,12 @@
 
   <h2>Inscription Recruteur</h2>
 
+
+  <div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="recruteur-form">
     <div class="form-field">
       <label for="nom">Nom</label>

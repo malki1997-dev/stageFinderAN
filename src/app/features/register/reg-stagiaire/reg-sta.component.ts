@@ -79,10 +79,16 @@ export class RegisterStagiaireComponent {
 
     this.authService.registerWithFormData(formData).subscribe({
       next: () => this.router.navigate(['/login']),
-      error: (err) => {
-        console.error("Erreur :", err);
-        this.errorMessage = "Erreur lors de l'inscription.";
-      }
+  error: (err) => {
+  console.error("Erreur :", err);
+  // Si le backend renvoie un message dans err.error.message
+  if (err.error && err.error.message) {
+    this.errorMessage = err.error.message;
+  } else {
+    this.errorMessage = "Erreur lors de l'inscription.";
+  }
+}
+
     });
   }
 }

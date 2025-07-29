@@ -14,6 +14,12 @@
       <label for="email">Email *</label>
       <input type="email" id="email" [(ngModel)]="user.email" name="email" required placeholder="Entrez votre email">
     </div>
+    <!-- Mot de passe (nécessaire pour la reconnexion après modification) -->
+<div class="form-group">
+  <label for="passwordInput">Mot de passe *</label>
+  <input type="password" id="passwordInput" [(ngModel)]="passwordInput" name="passwordInput" required placeholder="Entrez votre mot de passe pour confirmer">
+</div>
+
 
     <!-- Téléphone -->
     <div class="form-group">

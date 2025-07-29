@@ -29,20 +29,6 @@ export class AuthService {
     this.isAuthenticatedSubject.next(!!token);
   }
 
-  login(email: string, password: string): Observable<AuthResponse> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }, { headers }).pipe(
-      tap((response) => {
-        if (response.token) { // ✅ Correction ici
-          localStorage.setItem('access_token', response.token);
-          localStorage.setItem('refresh_token', response.refreshToken || '');
-          this.isAuthenticatedSubject.next(true);
-        } else {
-          console.error('Token manquant dans la réponse');
-        }
-      })
-    );
-  }
 register(user: UserDTO, cvFile?: File, imageFile?: File): Observable<AuthResponse> {
   const formData = new FormData();
 
@@ -67,6 +53,23 @@ register(user: UserDTO, cvFile?: File, imageFile?: File): Observable<AuthRespons
     })
   );
 }
+login(credentials: { email: string; password: string }): Observable<AuthResponse> {
+  const headers = new HttpHeaders().set('Content-Type', 'application/json');
+  return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials, { headers }).pipe(
+    tap((response) => {
+      if (response.token) {
+        localStorage.setItem('access_token', response.token);
+        localStorage.setItem('refresh_token', response.refreshToken || '');
+        this.isAuthenticatedSubject.next(true);
+      }
+    }),
+    catchError((error) => {
+      console.error('Erreur lors du login :', error);
+      return throwError(() => error);
+    })
+  );
+}
+
 checkPhoneNumberExists(tel: string) {
   return this.http.get<boolean>(`http://localhost:8080/auth/check-tel?tel=${tel}`);
 }
@@ -204,7 +207,7 @@ getAuthHeaders(): HttpHeaders {
       return null;4
     }
   }
- /* getUserName(): string | null {
+  getUserName(): string | null {
     const token = this.getToken();
     if (!token) return null;
 
@@ -215,7 +218,7 @@ getAuthHeaders(): HttpHeaders {
       console.error('Erreur de décodage du token pour le nom', e);
       return null;
     }
-  }*/
+  }
   getUserId(): number | null {
   const token = this.getToken();
   if (!token) return null;
@@ -263,6 +266,34 @@ getAuthHeaders(): HttpHeaders {
 
 
 
+updateCurrentUser(user: UserDTO): Observable<UserDTO> {
+  const headers = this.getAuthHeaders();
+  return this.http.put<UserDTO>(`${this.apiUrl}/me`, user, { headers });
+}
+updateCurrentUserWithFormData(user: UserDTO, imageFile?: File, cvFile?: File): Observable<UserDTO> {
+  const formData = new FormData();
+
+  const userJson = JSON.stringify(user);
+  formData.append('user', new Blob([userJson], { type: 'application/json' }));
+
+  if (imageFile) {
+    formData.append('image', imageFile);
+  }
+  if (cvFile) {
+    formData.append('cvFile', cvFile);
+  }
+
+  const headers = this.getAuthHeaders(); // inclut Authorization
+  return this.http.put<UserDTO>('http://localhost:8080/auth/me', formData, {
+    headers,
+  });
+}
+
+
+
+
+
   
-  
+ 
+
 }

@@ -17,6 +17,8 @@ export const authInterceptor: HttpInterceptorFn = (
   const token = authService.getToken();
 
   if (token) {
+      console.log('✅ Token injecté dans l’intercepteur :', token);
+
     request = addTokenToRequest(request, token);
   }
 
