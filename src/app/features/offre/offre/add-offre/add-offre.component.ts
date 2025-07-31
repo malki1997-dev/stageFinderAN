@@ -5,10 +5,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
 import { OffreService } from '../offre.service';
 import { OffreDTO } from '../offre.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
+import { Ville } from '../offre-ville.enum';
 
 @Component({
   selector: 'app-add-offre',
@@ -19,7 +21,8 @@ import { AuthService } from '../../../auth/auth.service';
     InputTextModule,
     FormsModule,
     CalendarModule,
-    DropdownModule
+    DropdownModule,
+    CheckboxModule
   ],
   templateUrl: './add-offre.component.html',
   styleUrls: ['./add-offre.component.css']
@@ -32,6 +35,7 @@ export class AddOffreComponent {
     id: 0,
     anneesExperience: '',
     description: '',
+    preEmbauche: false,
     ville: '',
     nomEntreprise: '',
     salaire: 0,
@@ -41,7 +45,7 @@ export class AddOffreComponent {
     publieParNom: '',
     categorieNom: '',
     publieParId: 0,
-    categorieId: 0
+    categorieId: 0,
   };
 
   categories = [
@@ -98,19 +102,28 @@ export class AddOffreComponent {
     { id: 51, name: 'AUTRE' }
   ];
 
+  villes = Object.values(Ville).map(ville => ({
+    label: ville.toUpperCase(),
+    value: ville.toUpperCase()
+  }));
+
   selectedCategory: number = 0;
+  selectedVille: string = '';
 
   constructor(
     private offreService: OffreService,
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) {
+    console.log('Villes disponibles:', this.villes);
+  }
 
   showDialog() {
     this.newOffre = {
       id: 0,
       anneesExperience: '',
       description: '',
+      preEmbauche: false,
       ville: '',
       nomEntreprise: '',
       salaire: 0,
@@ -123,16 +136,24 @@ export class AddOffreComponent {
       categorieId: 0
     };
     this.selectedCategory = 0;
+    this.selectedVille = '';
+    console.log('showDialog: selectedVille initialisé à:', this.selectedVille);
     this.displayDialog = true;
   }
 
   onSubmit(): void {
-    if (this.selectedCategory > 0) {
-      this.newOffre.categorieId = this.selectedCategory;
-    } else {
+    console.log('onSubmit: selectedVille:', this.selectedVille, 'newOffre:', this.newOffre);
+    if (this.selectedCategory <= 0) {
       console.error('Aucune catégorie sélectionnée');
       return;
     }
+    if (!this.selectedVille) {
+      console.error('Aucune ville sélectionnée');
+      return;
+    }
+
+    this.newOffre.categorieId = this.selectedCategory;
+    this.newOffre.ville = this.selectedVille.toUpperCase(); // Assurer que la ville est en majuscules
 
     const userId = this.authService.getUserId();
     if (!userId) {

@@ -1,16 +1,24 @@
 <div class="job-listings">
-  <app-add-offre></app-add-offre>
-  <h2>MES OFFRES DE STAGE</h2>
+  <!-- <app-add-offre *ngIf="isRecruteur" (offreAdded)="onOffreAdded()"></app-add-offre> -->
+  <app-add-offre ></app-add-offre>
+  <h2>OFFRES DE STAGE</h2>
+
+  <div *ngIf="offres === undefined || offres === null" class="debug">Chargement des offres...</div>
+  <div *ngIf="offres?.length === 0" class="debug">Aucune offre disponible.</div>
+
   <div class="job-card" *ngFor="let offre of offres">
     <div class="job-header">
       <div class="job-details">
         <p class="description">{{ offre.description }}</p>
-        <p class="description">Expérience: {{ offre.anneesExperience }}</p>
-        <p class="location">
-          <i class="pi pi-map-marker"></i> {{ offre.ville }}
+        <p class="location"><i class="pi pi-map-marker"></i> {{ offre.ville }}</p>
+        <p class="description">
+          Pré-embauche: <i class="pi" [ngClass]="offre.preEmbauche ? 'pi-check-circle pre-embauche-oui' : 'pi-times-circle pre-embauche-non'"></i>
+          {{ offre.preEmbauche ? 'Oui' : 'Non' }}
         </p>
-        <p class="category">Domaine: {{ offre.categorieNom }}</p>
-        <p class="skills">Compétences: {{ offre.competenceExigee }}</p>
+        <p class="description">Expérience: {{ offre.anneesExperience }}</p>
+        <p class="skills">Compétences:
+          <span *ngFor="let skill of offre.competenceExigee?.split(',')" class="skill-chip">{{ skill.trim() }}</span>
+        </p>
         <p class="salary">Salaire: {{ offre.salaire + " MAD" }}</p>
       </div>
       <div class="job-meta">
@@ -19,9 +27,13 @@
         <p class="published-by">Publié par: {{ offre.publieParNom }}</p>
         <p class="published-by">Nom d'Entreprise: {{ offre.nomEntreprise }}</p>
         <div class="action-buttons">
-          <p-button icon="pi pi-pencil" styleClass="edit-button" (click)="showEditDialog(offre)"></p-button>
-          <p-button icon="pi pi-trash" styleClass="delete-button" (click)="deleteOffre(offre.id)"></p-button>
-          <p-button label="Voir Candidatures" styleClass="candidatures-button" (click)="viewCandidatures(offre.id)"></p-button>
+          <!-- <p-button label="Postuler" styleClass="apply-button" (click)="onPostule(offre.id)" *ngIf="isStagiaire"></p-button> -->
+          <!-- <div class="admin-actions" *ngIf="isAdmin || isRecruteur"> -->
+          <div class="admin-actions" >
+            <p-button icon="pi pi-pencil" styleClass="edit-button" (click)="showEditDialog(offre)"></p-button>
+            <p-button icon="pi pi-trash" styleClass="delete-button" (click)="deleteOffre(offre.id)"></p-button>
+            <p-button label="Voir Candidatures" styleClass="candidatures-button" (click)="viewCandidatures(offre.id)"></p-button>
+          </div>
         </div>
       </div>
     </div>

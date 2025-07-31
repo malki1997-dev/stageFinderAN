@@ -52,7 +52,7 @@ export class HeaderAdminComponent implements OnInit {
         ...(role === 'ADMINISTRATEUR' ? [{ label: 'Dashboard', routerLink: '/dashboard-admin' }] : []),
         ...(role === 'STAGIAIRE' ? [{ label: 'Mes demandes', routerLink: '/my-applied-offers' }] : []),
         { label: 'Mon profil', routerLink: '/edit-profile' },
-        { label: 'Déconnexion', command: () => this.onLogout() }
+        // { label: 'Déconnexion', command: () => this.onLogout() }
       ];
     } else {
       this.userMenuItems = [
@@ -63,39 +63,39 @@ export class HeaderAdminComponent implements OnInit {
     }
   }
 
-  onLogout(): void {
-    this.authService.logout().subscribe({
-      next: () => {
-        localStorage.removeItem('user');
-        this.updateUserDetails();
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        console.error('Erreur lors de la déconnexion:', err);
-        localStorage.removeItem('user');
-        this.updateUserDetails();
-        this.router.navigate(['/login']);
-      }
-    });
-  }
+//   onLogout(): void {
+//     this.authService.logout().subscribe({
+//       next: () => {
+//         localStorage.removeItem('user');
+//         this.updateUserDetails();
+//         this.router.navigate(['/login']);
+//       },
+//       error: (err) => {
+//         console.error('Erreur lors de la déconnexion:', err);
+//         localStorage.removeItem('user');
+//         this.updateUserDetails();
+//         this.router.navigate(['/login']);
+//       }
+//     });
+//   }
 
-  listeStagiaires() {
-    this.router.navigate(['stagiaire-list']);
-  }
+  // listeStagiaires() {
+  //   this.router.navigate(['stagiaire-list']);
+  // }
 
-  listeEntreprises() {
-    this.router.navigate(['recruteur-list']);
-  }
+  // listeEntreprises() {
+  //   this.router.navigate(['recruteur-list']);
+  // }
 
-  listeEntreprisesNA() {
-    this.router.navigate(['na-recruteur-list']);
-  }
+  // listeEntreprisesNA() {
+  //   this.router.navigate(['na-recruteur-list']);
+  // }
 
-  mesOffres() {
-    this.router.navigate(['mes-offres']);
-  }
+  // mesOffres() {
+  //   this.router.navigate(['mes-offres']);
+  // }
 
-  tarifs() {
-    this.router.navigate(['tarifs-stagiaire']);
-  }
-}
+//   tarifs() {
+//     this.router.navigate(['tarifs-stagiaire']);
+//   }
+ }

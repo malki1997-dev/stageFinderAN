@@ -1,3 +1,5 @@
+
+
 :host {
   display: block;
 }
@@ -10,8 +12,59 @@
   @apply text-blue-600 dark:text-blue-400;
 }
 
-.p-button-rounded {
-  @apply text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 !important;
+/* Style pour les boutons */
+:host ::ng-deep .cta-button,
+:host ::ng-deep .recruiter-button,
+:host ::ng-deep .na-recruiter-button {
+  @apply bg-blue-900 text-white rounded-lg shadow-sm;
+  margin-right: 0.5rem; /* Ajoute une marge à droite de 8px pour espacement supplémentaire */
+  padding: 0.5rem 1rem; /* Padding interne pour un look cohérent */
+  transition: background-color 0.3s ease;
+}
+
+:host ::ng-deep .cta-button:hover,
+:host ::ng-deep .recruiter-button:hover,
+:host ::ng-deep .na-recruiter-button:hover {
+  @apply bg-blue-800 text-white; /* Bleu légèrement plus clair au survol */
+}
+
+/* Style pour le bouton utilisateur (rond, icône) */
+:host ::ng-deep .p-button.p-button-text.p-button-rounded {
+  @apply bg-blue-900 text-white;
+  margin-right: 0.5rem; /* Ajoute une marge à droite */
+}
+
+:host ::ng-deep .p-button.p-button-text.p-button-rounded:hover {
+  @apply bg-blue-800 text-white;
+}
+
+:host ::ng-deep .p-button.p-button-text.p-button-rounded .p-button-icon,
+:host ::ng-deep .p-button.p-button-text.p-button-rounded .pi {
+  color: #F3F4F6 !important; /* Blanc cassé pour contraste en mode clair */
+}
+
+:host ::ng-deep .dark .p-button.p-button-text.p-button-rounded .p-button-icon,
+:host ::ng-deep .dark .p-button.p-button-text.p-button-rounded .pi {
+  color: #E5E7EB !important; /* Blanc cassé en mode sombre */
+}
+
+:host ::ng-deep .p-button.p-button-text.p-button-rounded:hover .p-button-icon,
+:host ::ng-deep .p-button.p-button-text.p-button-rounded:hover .pi {
+  color: #FFFFFF !important; /* Blanc pur au hover */
+}
+
+:host ::ng-deep .dark .p-button.p-button-text.p-button-rounded:hover .p-button-icon,
+:host ::ng-deep .dark .p-button.p-button-text.p-button-rounded:hover .pi {
+  color: #F3F4F6 !important; /* Blanc cassé au hover en mode sombre */
+}
+
+/* Surcharge pour le badge de notification */
+:host ::ng-deep .p-badge {
+  @apply bg-blue-900 dark:bg-blue-800 text-white !important;
+}
+
+.logo-icon {
+  @apply h-12 w-auto object-contain;
 }
 
 /* Surcharge ultra-spécifique pour les icônes PrimeNG */
@@ -33,13 +86,4 @@
 :host ::ng-deep .dark .p-button.p-button-text.p-button-rounded:hover .p-button-icon,
 :host ::ng-deep .dark .p-button.p-button-text.p-button-rounded:hover .pi {
   color: #BFDBFE !important; /* Bleu plus clair au hover en mode sombre */
-}
-
-/* Surcharge pour le badge de notification */
-:host ::ng-deep .p-badge {
-  @apply bg-blue-600 dark:bg-blue-400 text-white !important;
-}
-
-.logo-icon {
-  @apply h-12 w-auto object-contain;
 }

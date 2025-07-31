@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { OffreService } from '../offre.service';
 import { OffreDTO } from '../offre.model';
 import { ChipModule } from 'primeng/chip';
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { Router } from '@angular/router';
-import { AddOffreComponent } from "../add-offre/add-offre.component";
+import { AddOffreComponent } from '../add-offre/add-offre.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { AuthService } from '../../../auth/auth.service';
 
@@ -23,23 +23,32 @@ import { AuthService } from '../../../auth/auth.service';
     SearchBarComponent
   ],
   templateUrl: './offre-list.component.html',
-  styleUrl: './offre-list.component.css',
+  styleUrls: ['./offre-list.component.css'],
   standalone: true
 })
 export class OffreListComponent implements OnInit {
   offres: OffreDTO[] = [];
   currentPage: number = 0;
-  rowsPerPage: number = 3;
+  rowsPerPage: number = 6;
   totalRecords: number = 0;
   searchVille: string | null = null;
 
   constructor(
     private offreService: OffreService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
+    console.log('OffreListComponent: Checking token on init');
+    const token = this.authService.getToken();
+    console.log('OffreListComponent: Token available:', token);
+    if (!this.authService.isLoggedIn()) {
+      console.log('OffreListComponent: User not logged in, redirecting to login');
+      this.router.navigate(['/login']);
+      return;
+    }
     this.loadOffres(this.currentPage, this.rowsPerPage);
   }
 
@@ -56,28 +65,41 @@ export class OffreListComponent implements OnInit {
   }
 
   loadOffres(page: number, size: number, ville: string | null = null) {
+    console.log('OffreListComponent: Loading offres, page:', page, 'size:', size, 'ville:', ville);
     if (ville) {
       this.offreService.getOffresByVille(ville, page, size).subscribe({
         next: (response) => {
-          this.offres = response.offres.sort((a, b) => a.id - b.id);
-          this.currentPage = response.currentPage;
-          this.totalRecords = response.totalItems;
-          console.log('Offres chargées par ville:', this.offres);
+          console.log('Réponse API (par ville) :', response);
+          this.offres = Array.isArray(response.offres)
+            ? response.offres.sort((a, b) => new Date(b.datePublication).getTime() - new Date(a.datePublication).getTime())
+            : [];
+          this.currentPage = response.currentPage ?? 0;
+          this.totalRecords = response.totalItems ?? 0;
+          console.log('OffreListComponent: Offres chargées par ville:', this.offres);
+          this.cdr.detectChanges();
         },
         error: (err) => {
-          console.error('Erreur lors du chargement des offres par ville:', err);
+          console.error('OffreListComponent: Erreur lors du chargement des offres par ville:', err);
+          this.offres = [];
+          this.cdr.detectChanges();
         }
       });
     } else {
       this.offreService.getOffres(page, size).subscribe({
         next: (response) => {
-          this.offres = response.offres.sort((a, b) => a.id - b.id);
-          this.currentPage = response.currentPage;
-          this.totalRecords = response.totalItems;
-          console.log('Offres chargées:', this.offres);
+          console.log('Réponse API :', response);
+          this.offres = Array.isArray(response.offres)
+            ? response.offres.sort((a, b) => new Date(b.datePublication).getTime() - new Date(a.datePublication).getTime())
+            : [];
+          this.currentPage = response.currentPage ?? 0;
+          this.totalRecords = response.totalItems ?? 0;
+          console.log('OffreListComponent: Offres chargées:', this.offres);
+          this.cdr.detectChanges();
         },
         error: (err) => {
-          console.error('Erreur lors du chargement des offres:', err);
+          console.error('OffreListComponent: Erreur lors du chargement des offres:', err);
+          this.offres = [];
+          this.cdr.detectChanges();
         }
       });
     }
@@ -91,7 +113,7 @@ export class OffreListComponent implements OnInit {
 
   onSearch(ville: string) {
     this.searchVille = ville || null;
-    this.currentPage = 0; // Reset to first page
+    this.currentPage = 0;
     this.loadOffres(this.currentPage, this.rowsPerPage, this.searchVille);
   }
 
@@ -114,11 +136,8 @@ export class OffreListComponent implements OnInit {
   }
 
   onPostule(offreId: number) {
-    if (offreId) {
-      this.router.navigate(['postuler', offreId]);
-    } else {
-      console.error('offreId non défini');
-    }
+    const userId = this.authService.getUserId();
+    this.router.navigate([`/postuler/${offreId}/form`]);
   }
 
   onOffreAdded() {

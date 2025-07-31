@@ -7,9 +7,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { Ville } from '../offre-ville.enum';
 
 @Component({
   selector: 'app-edit-offre',
@@ -21,6 +23,7 @@ import { MessageService } from 'primeng/api';
     FormsModule,
     CalendarModule,
     DropdownModule,
+    CheckboxModule,
     ToastModule
   ],
   templateUrl: './edit-offre.component.html',
@@ -34,6 +37,7 @@ export class EditOffreComponent implements OnInit {
     id: 0,
     anneesExperience: '',
     description: '',
+    preEmbauche: false,
     ville: '',
     categorieNom: '',
     publieParNom: '',
@@ -46,7 +50,6 @@ export class EditOffreComponent implements OnInit {
     publieParId: 0
   };
 
-  // Liste des catégories avec id et name
   categories = [
     { id: 1, name: 'INFORMATIQUE' },
     { id: 2, name: 'DEVELOPPEMENT' },
@@ -101,14 +104,22 @@ export class EditOffreComponent implements OnInit {
     { id: 51, name: 'AUTRE' }
   ];
 
-  selectedCategory: number = 0; // Catégorie sélectionnée dans le dropdown
+  villes = Object.values(Ville).map(ville => ({
+    label: ville.toUpperCase(),
+    value: ville.toUpperCase()
+  }));
+
+  selectedCategory: number = 0;
+  selectedVille: string = '';
 
   constructor(
     private offreService: OffreService,
     private route: ActivatedRoute,
     private router: Router,
     private messageService: MessageService
-  ) {}
+  ) {
+    console.log('Villes disponibles:', this.villes);
+  }
 
   ngOnInit(): void {
     this.offreId = Number(this.route.snapshot.paramMap.get('id'));
@@ -125,7 +136,6 @@ export class EditOffreComponent implements OnInit {
     }
   }
 
-  // Charger les données de l'offre
   loadOffre(id: number) {
     this.offreService.getOffreById(id).subscribe({
       next: (offre) => {
@@ -133,11 +143,15 @@ export class EditOffreComponent implements OnInit {
         this.offre = {
           ...offre,
           datePublication: new Date(offre.datePublication),
-          dateExpiration: new Date(offre.dateExpiration)
+          dateExpiration: new Date(offre.dateExpiration),
+          preEmbauche: offre.preEmbauche ?? false // Assurer que preEmbauche est défini
         };
-        this.selectedCategory = this.offre.categorieId; // Initialiser la catégorie sélectionnée
+        this.selectedCategory = this.offre.categorieId;
+        this.selectedVille = this.offre.ville.toUpperCase();
         console.log('nomEntreprise chargé :', this.offre.nomEntreprise);
         console.log('categorieId chargé :', this.offre.categorieId);
+        console.log('selectedVille chargé :', this.selectedVille);
+        console.log('preEmbauche chargé :', this.offre.preEmbauche);
         this.displayDialog = true;
       },
       error: (err) => {
@@ -152,12 +166,13 @@ export class EditOffreComponent implements OnInit {
     });
   }
 
-  // Soumettre les modifications
+  onPreEmbaucheChange(event: any) {
+    console.log('preEmbauche modifié :', this.offre.preEmbauche, 'event:', event);
+  }
+
   onSubmit() {
     if (this.offre.id) {
-      if (this.selectedCategory > 0) {
-        this.offre.categorieId = this.selectedCategory; // Mettre à jour categorieId
-      } else {
+      if (this.selectedCategory <= 0) {
         this.messageService.add({
           severity: 'error',
           summary: 'Erreur',
@@ -165,16 +180,31 @@ export class EditOffreComponent implements OnInit {
         });
         return;
       }
+      if (!this.selectedVille) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erreur',
+          detail: 'Aucune ville sélectionnée'
+        });
+        return;
+      }
+
+      this.offre.categorieId = this.selectedCategory;
+      this.offre.ville = this.selectedVille;
 
       console.log('Envoi de l\'offre pour mise à jour (ID: ' + this.offre.id + '):');
       console.log('nomEntreprise envoyé :', this.offre.nomEntreprise);
       console.log('categorieId envoyé :', this.offre.categorieId);
+      console.log('ville envoyé :', this.offre.ville);
+      console.log('preEmbauche envoyé :', this.offre.preEmbauche);
       console.table(this.offre);
       this.offreService.updateOffre(this.offre.id, this.offre).subscribe({
         next: (updatedOffre) => {
           console.log('Offre mise à jour (ID: ' + updatedOffre.id + '):');
           console.log('nomEntreprise retourné :', updatedOffre.nomEntreprise);
           console.log('categorieId retourné :', updatedOffre.categorieId);
+          console.log('ville retourné :', updatedOffre.ville);
+          console.log('preEmbauche retourné :', updatedOffre.preEmbauche);
           console.table(updatedOffre);
           this.displayDialog = false;
           this.messageService.add({
@@ -202,7 +232,6 @@ export class EditOffreComponent implements OnInit {
     }
   }
 
-  // Fermer le dialogue
   cancel() {
     this.displayDialog = false;
     this.router.navigate(['/']);

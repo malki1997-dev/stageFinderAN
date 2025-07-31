@@ -33,6 +33,7 @@ export class NonAcceptedRecruteursListComponent implements OnInit{
 
   toggleEstValide(recruteur: UserDTO): void {
     const newEstValide = !recruteur.estValide;
+    console.log("AAAAAAAA");
     this.userService.updateEstValide(recruteur.id, newEstValide).subscribe({
       next: (updatedUser) => {
         const index = this.nonAcceptedRecruteurs.findIndex(r => r.id === recruteur.id);
@@ -43,6 +44,8 @@ export class NonAcceptedRecruteursListComponent implements OnInit{
           }
           this.nonAcceptedRecruteurs = [...this.nonAcceptedRecruteurs];
         }
+        console.log("BBBBBBB");
+
       },
       error: (err) => {
         console.error('Erreur lors de la mise à jour de estValide', err);

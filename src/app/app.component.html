@@ -1,6 +1,8 @@
 
 <div class="page-container">
-  <app-header-admin *ngIf="isLoggedIn"></app-header-admin>
+  <!-- <app-header-admin *ngIf="isLoggedIn"></app-header-admin> -->
+  <app-navbar *ngIf="isLoggedIn"></app-navbar>
+  <!-- <app-navbar></app-navbar> -->
   <main class="main-content">
     <router-outlet></router-outlet>
   </main>

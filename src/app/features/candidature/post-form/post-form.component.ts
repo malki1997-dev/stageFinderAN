@@ -140,10 +140,14 @@ export class PostFormComponent implements OnInit {
     formData.append('offreId', this.offreId.toString());
     formData.append('statutCandidature', 'EN_ATTENTE');
     if (this.uploadedCv) {
-      formData.append('cvChoisi', this.uploadedCv, this.uploadedCv.name);
+      console.log('CV Type MIME:', this.uploadedCv.type);
+      formData.append('file', this.uploadedCv, this.uploadedCv.name);
+      formData.append('type', 'cv');
     }
     if (this.uploadedLettreMotivation) {
-      formData.append('lettreMotivation', this.uploadedLettreMotivation, this.uploadedLettreMotivation.name);
+      console.log('Lettre Type MIME:', this.uploadedLettreMotivation.type);
+      formData.append('file', this.uploadedLettreMotivation, this.uploadedLettreMotivation.name);
+      formData.append('type', 'lettre');
     }
 
     console.log('FormData envoyé:', [...formData.entries()]);
@@ -167,7 +171,7 @@ export class PostFormComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Erreur',
-          detail: 'Erreur lors de la soumission de la candidature: ' + (err.message || err.statusText)
+          detail: 'Erreur lors de la soumission de la candidature: ' + (err.error?.message || err.statusText)
         });
         this.isLoading = false;
       }

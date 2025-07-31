@@ -8,27 +8,35 @@
     </div>
 
     <div class="p-field">
-      <label for="titre">Expérience</label>
-      <input pInputText id="titre" [(ngModel)]="newOffre.anneesExperience" placeholder="Ex: au mois 2 mois" />
+      <label for="preEmbauche">Pré-embauche</label>
+      <p-checkbox id="preEmbauche" [(ngModel)]="newOffre.preEmbauche" binary="true"></p-checkbox>
+    </div>
+
+    <div class="p-field">
+      <label for="anneesExperience">Expérience</label>
+      <input pInputText id="anneesExperience" [(ngModel)]="newOffre.anneesExperience" placeholder="Ex: au moins 2 mois" />
     </div>
 
     <div class="p-field">
       <label for="categorie">Catégorie</label>
-      <p-dropdown id="categorie" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="name" optionValue="id" placeholder="Sélectionnez une catégorie"></p-dropdown>
+      <p-dropdown id="categorie" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="name" optionValue="id" placeholder="Sélectionnez une catégorie" [showClear]="true"></p-dropdown>
     </div>
 
     <div class="p-field">
       <label for="ville">Ville</label>
-      <input pInputText id="ville" [(ngModel)]="newOffre.ville" placeholder="Ex: Oujda" />
+      <p-dropdown id="ville" [options]="villes" [(ngModel)]="selectedVille" optionLabel="label" optionValue="value" placeholder="Sélectionnez une ville" [showClear]="true"></p-dropdown>
     </div>
+
     <div class="p-field">
       <label for="nomEntreprise">Nom de l'Entreprise</label>
       <input pInputText id="nomEntreprise" [(ngModel)]="newOffre.nomEntreprise" placeholder="Ex: TechCorp" />
     </div>
+
     <div class="p-field">
       <label for="salaire">Salaire (MAD)</label>
       <input pInputText id="salaire" type="number" [(ngModel)]="newOffre.salaire" placeholder="Ex: 8000" />
     </div>
+
     <div class="p-field">
       <label for="competenceExigee">Compétences Exigées</label>
       <input pInputText id="competenceExigee" [(ngModel)]="newOffre.competenceExigee" placeholder="Ex: JAVA, Spring Boot, Angular" />

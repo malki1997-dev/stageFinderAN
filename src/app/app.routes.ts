@@ -8,9 +8,10 @@ import { TarifsStagiaireComponent } from './features/tarifs-stagiaire/tarifs-sta
 import { DashbordAdminComponent } from './features/dashboard-admin/dashbord-admin/dashbord-admin.component';
 //import { AuthGuard } from './core/guards/auth.guard';
 import { HomeComponent } from './features/home/home.component';
+import { LoginComponent } from './features/auth/login/login.component';
 
 export const routes: Routes = [
-  //{path:"login", component : LoginComponent},
+  {path:"login", component : LoginComponent},
   {path:"home", component : HomeComponent,
     //canActivate:[AuthGuard]
   },

@@ -1,5 +1,7 @@
 <div class="candidatures-container">
   <h2>Stagiaires ayant postulé</h2>
+  <div *ngIf="candidatures?.length === 0" class="debug">Aucune candidature disponible.</div>
+
   <p-table [value]="candidatures" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
       <tr>
@@ -25,33 +27,30 @@
             (ngModelChange)="updateStatus(candidature, $event)"
             [style]="{ width: '150px' }"
           >
-            <!-- Template pour le label affiché -->
             <ng-template let-item pTemplate="selectedItem">
               <span class="select-display-text">{{ item.label }}</span>
             </ng-template>
-
-            <!-- Template pour les items dans le menu -->
             <ng-template let-item pTemplate="item">
               <span>{{ item.label }}</span>
             </ng-template>
           </p-select>
         </td>
         <td>
-          <a
+          <p-button
             *ngIf="candidature.cvFileName"
-            [href]="getFileUrl(candidature.cvFileName, 'cv')"
-            target="_blank"
-            class="file-link"
-          >Voir CV</a>
+            label="Voir CV"
+            styleClass="file-button"
+            (click)="viewFile(candidature.cvFileName, 'cv')"
+          ></p-button>
           <span *ngIf="!candidature.cvFileName">Aucun CV</span>
         </td>
         <td>
-          <a
+          <p-button
             *ngIf="candidature.lettreMotivationFileName"
-            [href]="getFileUrl(candidature.lettreMotivationFileName, 'lettre')"
-            target="_blank"
-            class="file-link"
-          >Voir Lettre</a>
+            label="Voir Lettre"
+            styleClass="file-button"
+            (click)="viewFile(candidature.lettreMotivationFileName, 'lettre')"
+          ></p-button>
           <span *ngIf="!candidature.lettreMotivationFileName">Aucune lettre</span>
         </td>
       </tr>

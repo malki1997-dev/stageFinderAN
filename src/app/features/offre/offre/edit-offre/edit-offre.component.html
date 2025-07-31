@@ -3,20 +3,24 @@
 <p-dialog header="Modifier une Offre" [(visible)]="displayDialog" [modal]="true" (onHide)="cancel()">
   <div class="dialog-content">
     <div class="p-field">
-      <label for="titre">Titre</label>
-      <input pInputText id="titre" [(ngModel)]="offre.anneesExperience" placeholder="Ex: Stage en Informatique" />
-    </div>
-    <div class="p-field">
       <label for="description">Description</label>
       <input pInputText id="description" [(ngModel)]="offre.description" placeholder="Ex: Stage de 6 mois en développement web" />
     </div>
     <div class="p-field">
+      <label for="preEmbauche">Pré-embauche</label>
+      <p-checkbox id="preEmbauche" [(ngModel)]="offre.preEmbauche" binary="true" (ngModelChange)="onPreEmbaucheChange($event)"></p-checkbox>
+    </div>
+    <div class="p-field">
+      <label for="anneesExperience">Expérience</label>
+      <input pInputText id="anneesExperience" [(ngModel)]="offre.anneesExperience" placeholder="Ex: au moins 2 mois" />
+    </div>
+    <div class="p-field">
       <label for="categorie">Catégorie</label>
-      <p-dropdown id="categorie" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="name" optionValue="id" placeholder="Sélectionnez une catégorie"></p-dropdown>
+      <p-dropdown id="categorie" [options]="categories" [(ngModel)]="selectedCategory" optionLabel="name" optionValue="id" placeholder="SÉLECTIONNEZ UNE CATÉGORIE" [showClear]="true"></p-dropdown>
     </div>
     <div class="p-field">
       <label for="ville">Ville</label>
-      <input pInputText id="ville" [(ngModel)]="offre.ville" placeholder="Ex: Oujda" />
+      <p-dropdown id="ville" [options]="villes" [(ngModel)]="selectedVille" optionLabel="label" optionValue="value" placeholder="SÉLECTIONNEZ UNE VILLE" [showClear]="true"></p-dropdown>
     </div>
     <div class="p-field">
       <label for="nomEntreprise">Nom de l'Entreprise</label>

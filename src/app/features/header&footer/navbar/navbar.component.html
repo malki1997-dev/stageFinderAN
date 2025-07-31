@@ -5,19 +5,29 @@
       <img src="/assets/images/LOGO.png" alt="StageFinder Logo" class="logo-icon" width="100" height="50">
     </a>
     </div>
+
   </ng-template>
 
   <ng-template pTemplate="end">
     <div class="flex items-center gap-4">
+      <p-button *ngIf="isAdmin" label="Liste des stagiaires" styleClass="cta-button" (click)="listeStagiaires()"></p-button>
+    <p-button *ngIf="isAdmin" label="Liste des entreprises" styleClass="recruiter-button" (click)="listeEntreprises()"></p-button>
+    <p-button *ngIf="isAdmin" label="Entreprises non acceptées" styleClass="na-recruiter-button" (click)="listeEntreprisesNA()"></p-button>
+    <p-button *ngIf="isAdmin" label="Dashbord" styleClass="na-recruiter-button" (click)="dashbord()"></p-button>
+    <p-button *ngIf="isRecruteur" label="Mes Offres" styleClass="na-recruiter-button" (click)="mesOffres()"></p-button>
+    <!-- <p-button  label="Mes Offres" styleClass="na-recruiter-button" (click)="mesOffres()"></p-button> -->
+    <p-button  *ngIf="isStagiaire" label="Mes Demandes" styleClass="na-recruiter-button" (click)="mesDemandes()"></p-button>
+
       <!-- Notification -->
-      <p-button
+      <!-- <p-button
         icon="pi pi-bell"
         [badge]="unreadNotifications"
         badgeSeverity="danger"
         styleClass="p-button-text p-button-rounded"
 
         title="Notifications"
-      ></p-button>
+      ></p-button> -->
+
       <!-- (click)="showNotifications()" -->
 
       <!-- Menu utilisateur -->
@@ -34,14 +44,14 @@
 </p-menubar>
 
 <!-- Overlay pour les notifications -->
-<p-overlayPanel #notificationPanel>
+<p-popover>
   <ng-template pTemplate="content">
     <div class="w-80 max-h-96 overflow-y-auto">
       <h3 class="text-lg font-semibold mb-2">Notifications</h3>
-      <ng-container *ngIf="notifications.length > 0; else noNotifications">
-        <div *ngFor="let notification of notifications" class="p-2 border-b">
-          <p class="text-sm">{{ notification.message }}</p>
-          <small class="text-gray-500">{{ notification.dateEnvoie | date:'short' }}</small>
+      <ng-container>
+        <div class="p-2 border-b">
+          <!-- <p class="text-sm">{{ notification.message }}</p> -->
+          <!-- <small class="text-gray-500">{{ notification.dateEnvoie | date:'short' }}</small> -->
         </div>
       </ng-container>
       <ng-template #noNotifications>
@@ -49,4 +59,4 @@
       </ng-template>
     </div>
   </ng-template>
-</p-overlayPanel>
+</p-popover>

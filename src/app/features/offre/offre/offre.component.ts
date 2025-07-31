@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-offre',
-  imports: [SearchBarComponent, OffreListComponent, HeaderBannerComponent, ],
+  imports: [OffreListComponent, HeaderBannerComponent],
   templateUrl: './offre.component.html',
   styleUrl: './offre.component.css'
 })

@@ -30,7 +30,7 @@ export class UserService {
   }
 
   updateEstValide(userId: number, estValide: boolean): Observable<UserDTO> {
-    return this.http.patch<UserDTO>(`${this.apiUrl}/users/${userId}`, { estValide });
+    return this.http.patch<UserDTO>(`${this.apiUrl}/users/${userId}/validate`, { estValide });
   }
 
   getNonAcceptedRecruteurs(): Observable<UserDTO[]> {

@@ -1,4 +1,3 @@
-/* Conteneur principal */
 .candidatures-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -6,49 +5,69 @@
   min-height: 100vh;
   position: relative;
   overflow: visible;
-  direction: ltr !important; /* Force ltr pour tout le conteneur */
+  direction: ltr !important;
 }
 
-/* Titre */
-h2 {
+.candidatures-container h2 {
+  font-size: 24px;
+  color: #576cb8;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.debug {
+  font-size: 14px;
+  color: red;
+  text-align: center;
   margin-bottom: 20px;
 }
 
-/* Table */
-p-table {
-  margin-bottom: 60px; /* Plus d'espace avant la pagination */
-}
-
-p-table .p-datatable {
+:host ::ng-deep .p-datatable {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: visible !important;
-  height: auto !important; /* Pas de hauteur fixe */
 }
 
-p-table .p-datatable-tbody > tr > td {
+:host ::ng-deep .p-datatable-thead > tr > th {
+  background-color: #f8f9fa;
+  color: #333;
+  font-weight: 600;
+  padding: 10px;
+}
+
+:host ::ng-deep .p-datatable-tbody > tr > td {
   padding: 10px;
   vertical-align: middle;
+  color: #666;
 }
 
-/* Liens pour fichiers */
-.file-link {
-  color: #007bff;
-  text-decoration: none;
-  margin-top: 5px;
-  display: inline-block;
+:host ::ng-deep .file-button {
+  background-color: #1d70b4 !important;
+  border-color: #1d70b4 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
 }
 
-.file-link:hover {
-  text-decoration: underline;
+:host ::ng-deep .file-button:hover {
+  background-color: #155a8a !important;
 }
 
-/* Select */
-p-select {
+:host ::ng-deep .message-button {
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+}
+
+:host ::ng-deep .message-button:hover {
+  background-color: #218838 !important;
+}
+
+:host ::ng-deep .p-select {
   width: 150px;
-  display: block;
-  direction: ltr !important; /* Force ltr pour p-select */
-}
-
-::ng-deep .p-select {
   display: flex !important;
   flex-direction: row !important;
   justify-content: space-between !important;
@@ -56,37 +75,135 @@ p-select {
   direction: ltr !important;
 }
 
-::ng-deep .p-select-label {
+:host ::ng-deep .p-select-label {
   flex-grow: 1;
   text-align: left;
   order: 0 !important;
 }
 
-::ng-deep .p-select-trigger {
-  margin-left: auto; /* Pousse la flèche à droite */
+:host ::ng-deep .p-select-trigger {
+  margin-left: auto;
   order: 1 !important;
 }
 
-/* Force les overlays PrimeNG à apparaître au-dessus de tout */
-::ng-deep .p-select-overlay,
-::ng-deep .p-overlaypanel,
-::ng-deep .p-dropdown-panel {
-  z-index: 10000 !important; /* Au-dessus de tout */
-  position: fixed !important; /* Pour éviter d'être coupé par overflow */
+:host ::ng-deep .p-select-overlay,
+:host ::ng-deep .p-overlaypanel,
+:host ::ng-deep .p-dropdown-panel {
+  z-index: 10000 !important;
+  position: fixed !important;
   max-height: 300px;
   overflow-y: auto;
 }
 
-/* Pagination en bas, mais pas au-dessus */
-p-paginator {
+.p-paginator {
   margin-top: 20px;
-  position: relative;
-  z-index: 0 !important; /* En dessous des overlays */
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 4px;
 }
 
-/* Styles globaux pour le défilement */
-html, body {
-  height: 100%;
-  margin: 0;
-  overflow: auto !important;
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: #ff9500;
+  border-color: #ff9500;
+  color: #fff;
+}
+
+.message-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+:host ::ng-deep .p-button-primary {
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+  color: #fff !important;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+:host ::ng-deep .p-button-primary:hover {
+  background-color: #218838 !important;
+}
+
+:host ::ng-deep .p-button-secondary {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  color: #fff !important;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+:host ::ng-deep .p-button-secondary:hover {
+  background-color: #5a6268 !important;
+}
+
+.messages-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.messages-container .message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.messages-container .sent {
+  background-color: #d4edda;
+  margin-left: 20%;
+  text-align: right;
+}
+
+.messages-container .received {
+  background-color: #f8f9fa;
+  margin-right: 20%;
+  text-align: left;
+}
+
+.message-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.custom-textarea {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.custom-textarea:focus {
+  outline: none;
+  border-color: #1d70b4;
+  box-shadow: 0 0 0 2px rgba(29, 112, 180, 0.2);
+}
+
+.custom-textarea::placeholder {
+  color: #6c757d;
 }

@@ -10,4 +10,5 @@ export interface CandidatureDTO {
   userEmail: string;
   cvFileName: string;
   lettreMotivationFileName: string;
+  isUpdating?: boolean;
 }

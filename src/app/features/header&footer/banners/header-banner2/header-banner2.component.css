@@ -7,6 +7,14 @@
   padding: 3rem 1rem;
   background-color: #f8fafc;
   font-family: 'Poppins', sans-serif;
+  overflow: hidden; /* Prevent text from overflowing during animation */
+  position: relative; /* Ensure positioning context for the slider */
+}
+
+.text-slider {
+  display: inline-block;
+  white-space: nowrap; /* Prevent text from wrapping to ensure smooth scrolling */
+  animation: slideLeftToRight 20s linear infinite; /* Animation: 20s duration, linear timing, infinite loop */
 }
 
 .banner-container h1 {
@@ -16,6 +24,7 @@
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  display: inline; /* Ensure h1 stays inline with the animation */
 }
 
 .banner-container p {
@@ -24,15 +33,32 @@
   font-weight: 400;
   max-width: 600px;
   line-height: 1.5;
+  display: inline; /* Ensure p stays inline with the animation */
+  margin-left: 1rem; /* Space between h1 and p */
+}
+
+/* Animation keyframes for left-to-right movement */
+@keyframes slideLeftToRight {
+  0% {
+    transform: translateX(-100%); /* Start off-screen to the left */
+  }
+  100% {
+    transform: translateX(100vw); /* Move to the right edge of the viewport */
+  }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .banner-container h1 {
-      font-size: 1.75rem;
+    font-size: 1.75rem;
   }
 
   .banner-container p {
-      font-size: 1rem;
+    font-size: 1rem;
+    margin-left: 0.5rem; /* Adjust spacing for smaller screens */
+  }
+
+  .text-slider {
+    animation-duration: 15s; /* Faster animation on smaller screens for better UX */
   }
 }

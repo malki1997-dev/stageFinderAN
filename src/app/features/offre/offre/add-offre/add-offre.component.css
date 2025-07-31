@@ -41,11 +41,16 @@
 :host ::ng-deep .p-dropdown .p-dropdown-label {
   padding: 8px;
   font-size: 14px;
+  color: #666; /* Couleur pour le texte du placeholder et de la sélection */
+}
+
+:host ::ng-deep .p-dropdown .p-placeholder {
+  color: #999; /* Couleur spécifique pour le placeholder */
 }
 
 :host ::ng-deep .p-dropdown-panel {
-  max-height: 200px; /* Hauteur maximale pour la liste déroulante */
-  overflow-y: auto; /* Activer le défilement vertical */
+  max-height: 200px;
+  overflow-y: auto;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fff;
@@ -62,6 +67,24 @@
 
 :host ::ng-deep .p-dropdown-panel .p-dropdown-item:hover {
   background-color: #f0f0f0;
+}
+
+:host ::ng-deep .p-checkbox {
+  margin-top: 5px;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon {
+  color: #fff;
 }
 
 :host ::ng-deep .p-button {

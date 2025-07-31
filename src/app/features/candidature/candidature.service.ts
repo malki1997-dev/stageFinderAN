@@ -19,15 +19,16 @@ export class CandidatureService {
     formData.append('offreId', candidature.offreId);
     formData.append('statutCandidature', candidature.statutCandidature);
     if (cvChoisi) {
-      formData.append('cvChoisi', cvChoisi);
+      formData.append('file', cvChoisi, cvChoisi.name);
+      formData.append('type', 'cv');
     }
     if (lettreMotivation) {
-      formData.append('lettreMotivation', lettreMotivation);
+      formData.append('file', lettreMotivation, lettreMotivation.name);
+      formData.append('type', 'lettre');
     }
 
     return this.http.post(this.apiUrl, formData);
   }
-
 
   getCandidaturesByOffre(offreId: number, page: number, size: number): Observable<CandidatureResponse> {
     return this.http.get<CandidatureResponse>(`${this.apiUrl}/offre/${offreId}?page=${page}&size=${size}`);

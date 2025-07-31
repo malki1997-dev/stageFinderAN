@@ -1,81 +1,91 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-//import { NotificationService } from '../../services/notification.service';
-//import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../auth/auth.service'; // Re-enable AuthService
 import { Router } from '@angular/router';
-//import { Notification } from '../../models/notification.model';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { DatePipe } from '@angular/common';
+import { PopoverModule } from 'primeng/popover'; // Replaced OverlayPanelModule
+import { DatePipe, CommonModule } from '@angular/common';
+import { UserDTO } from '../../user/user.model';
 
 @Component({
   selector: 'app-navbar',
-  imports: [MenubarModule, ButtonModule, MenuModule, OverlayPanelModule, DatePipe],
+  standalone: true,
+  imports: [CommonModule, MenubarModule, ButtonModule, MenuModule, PopoverModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
   menuItems: MenuItem[] = [];
   userMenuItems: MenuItem[] = [];
-  notifications: Notification[] = [];
-  unreadNotifications: string = '0';
+  user: Partial<UserDTO> | null = null;
+ // isAuthenticated$ = this.authService.isAuthenticated$;
 
   constructor(
-    // private notificationService: NotificationService,
-    // private authService: AuthService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.setupMenuItems();
-    // this.loadNotifications();
+    this.authService.isAuthenticated$.subscribe(isAuthenticated => {
+      this.user = isAuthenticated ? this.authService.getUser() : null;
+    });
+  }
+
+  get isAdmin(): boolean {
+    return this.authService.getUserRole() === 'ADMINISTRATEUR';
+  }
+
+  get isRecruteur(): boolean {
+    return this.authService.getUserRole() === 'RECRUTEUR';
+  }
+
+  get isStagiaire(): boolean {
+    return this.authService.getUserRole() === 'STAGIAIRE';
   }
 
   setupMenuItems(): void {
     this.menuItems = [
       { label: 'Accueil', icon: 'pi pi-home', routerLink: [''] },
-      { label: 'Offres', icon: 'pi pi-briefcase', routerLink: ['/offres'] }
+      { label: 'Offres', icon: 'pi pi-briefcase', routerLink: [''] }
     ];
 
     this.userMenuItems = [
       { label: 'Profil', icon: 'pi pi-user', routerLink: ['/user/profile'] },
       { label: 'Compte', icon: 'pi pi-cog', routerLink: ['/user/account'] },
-      { label: 'Déconnexion', icon: 'pi pi-sign-out'}
-      // { label: 'Déconnexion', icon: 'pi pi-sign-out', command: () => this.logout() }
+      { label: 'Déconnexion', icon: 'pi pi-sign-out', command: () => this.logout() }
     ];
   }
 
-  // loadNotifications(): void {
-  //   this.notificationService.getUserNotifications().subscribe({
-  //     next: (notifications) => {
-  //       this.notifications = notifications;
-  //       this.unreadNotifications = notifications.filter(n => !n.read).length.toString();
-  //     },
-  //     error: (err) => {
-  //       console.error('Erreur lors du chargement des notifications', err);
-  //     }
-  //   });
-  // }
+  logout(): void {
+    this.authService.logout(); // Synchronous call
+    this.router.navigate(['/login']);
+  }
 
-  // showNotifications(): void {
-  //   // Logique pour afficher les notifications (par exemple, marquer comme lues)
-  //   this.notificationService.markAsRead().subscribe({
-  //     next: () => {
-  //       this.unreadNotifications = '0';
-  //     }
-  //   });
-  // }
+    listeStagiaires() {
+    this.router.navigate(['stagiaire-list']);
+  }
 
-  // logout(): void {
-  //   this.authService.logout().subscribe({
-  //     next: () => {
-  //       this.router.navigate(['/login']);
-  //     },
-  //     error: (err) => {
-  //       console.error('Erreur lors de la déconnexion', err);
-  //     }
-  //   });
-  // }
+  listeEntreprises() {
+    this.router.navigate(['recruteur-list']);
+  }
+
+  listeEntreprisesNA() {
+    this.router.navigate(['na-recruteur-list']);
+  }
+
+  mesOffres() {
+    this.router.navigate(['mes-offres']);
+  }
+
+  mesDemandes(){
+    this.router
+    .navigate(['my-applied-offers'])
+  }
+
+  dashbord(){
+    this.router.navigate(['dashboard-admin'])
+  }
 }

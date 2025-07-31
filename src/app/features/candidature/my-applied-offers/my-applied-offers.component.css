@@ -41,7 +41,7 @@ p-table {
 
 /* Couleurs spécifiques pour chaque statut */
 .status-en-attente {
-  background-color: #ff9800; /* Orange pour "En attente" */
+  background-color: #1d70b4; /* Orange pour "En attente" */
 }
 
 .status-accepte {

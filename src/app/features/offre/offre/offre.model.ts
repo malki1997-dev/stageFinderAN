@@ -2,6 +2,7 @@ export interface OffreDTO {
   id: number;
   description: string;
   ville: string;
+  preEmbauche: boolean;
   anneesExperience: string;
   datePublication: Date;
   dateExpiration: Date;
